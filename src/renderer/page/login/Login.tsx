@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import backgroundBg from '../../../../assets/images/login/login_bg.svg';
 import vector from '../../../../assets/images/login/vector.png';
+import eye from '../../../../assets/images/login/password_eye.svg';
 import './style.css';
 
-function Login() {
+function Login(this: any) {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
+  };
+
   return (
     <div className="flex w-full">
       <div
@@ -20,12 +27,45 @@ function Login() {
               type="text"
             />
           </div>
-          <div className="password w-1/2 py-5 pb-1">
+          <div className="relative password w-1/2 py-5 pb-1">
             <span>Password</span>
             <input
               className="rounded-lg w-full mt-1 custom-input"
-              type="password"
+              type={showPassword ? 'text' : 'password'}
             />
+            {/* <button
+              type="button"
+              onClick={togglePasswordVisibility}
+               text-gray-500"
+            > */}
+            {showPassword ? (
+              <div
+                onClick={togglePasswordVisibility}
+                onKeyDown={() => {}}
+                role="button"
+                tabIndex={0}
+              >
+                <img
+                  className="absolute top-14 inset-y-0 right-2 flex items-center"
+                  src={eye}
+                  alt="eye"
+                />
+              </div>
+            ) : (
+              <div
+                onClick={togglePasswordVisibility}
+                onKeyDown={() => {}}
+                role="button"
+                tabIndex={0}
+              >
+                <img
+                  className="absolute top-14 inset-y-0 right-2 flex items-center"
+                  src={eye}
+                  alt="eye"
+                />
+              </div>
+            )}
+            {/* </button> */}
           </div>
           <div className="flex items-center w-1/2">
             <input
