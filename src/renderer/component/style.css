@@ -1,0 +1,11 @@
+.sidebar {
+  background-color: #161717;
+}
+
+.search {
+  background-color: #333333;
+  border: 0.1rem solid #333333;
+  color: white;
+  padding: 4px;
+  padding-inline: 8px;
+}

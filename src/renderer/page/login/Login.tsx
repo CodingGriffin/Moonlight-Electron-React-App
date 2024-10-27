@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import backgroundBg from '../../../../assets/images/login/login_bg.svg';
 import vector from '../../../../assets/images/login/vector.png';
 import eye from '../../../../assets/images/login/password_eye.svg';
@@ -10,6 +11,7 @@ function Login(this: any) {
   const togglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);
   };
+  const navigate = useNavigate();
 
   return (
     <div className="flex w-full">
@@ -33,11 +35,6 @@ function Login(this: any) {
               className="rounded-lg w-full mt-1 custom-input"
               type={showPassword ? 'text' : 'password'}
             />
-            {/* <button
-              type="button"
-              onClick={togglePasswordVisibility}
-               text-gray-500"
-            > */}
             {showPassword ? (
               <div
                 onClick={togglePasswordVisibility}
@@ -65,7 +62,6 @@ function Login(this: any) {
                 />
               </div>
             )}
-            {/* </button> */}
           </div>
           <div className="flex items-center w-1/2">
             <input
@@ -86,6 +82,7 @@ function Login(this: any) {
           <div className="flex items-center justify-center w-1/2 mt-10">
             <button
               type="button"
+              onClick={() => navigate('/dashboard')}
               className="w-full h-2/3 flex items-center justify-center mt-5 continue-button"
             >
               <span className="mx-2">CONTINUE</span>
