@@ -6,6 +6,26 @@
   background-color: #333333;
   border: 0.1rem solid #333333;
   color: white;
-  padding: 4px;
+  padding: 8px;
   padding-inline: 8px;
+  padding-left: 50px;
+}
+
+.search::placeholder {
+  font-size: small;
+  color: #848484;
+}
+
+.search-icon {
+  width: 15px;
+  height: 15px;
+}
+
+.email {
+  color: #5d5d5d;
+}
+
+.down-arrow {
+  width: 10px;
+  height: 10px;
 }

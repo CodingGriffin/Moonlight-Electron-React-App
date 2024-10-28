@@ -82,7 +82,7 @@ function Login(this: any) {
           <div className="flex items-center justify-center w-1/2 mt-10">
             <button
               type="button"
-              onClick={() => navigate('/dashboard')}
+              onClick={() => navigate('/after')}
               className="w-full h-2/3 flex items-center justify-center mt-5 continue-button"
             >
               <span className="mx-2">CONTINUE</span>
