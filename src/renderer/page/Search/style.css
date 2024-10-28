@@ -1,0 +1,21 @@
+.map {
+  aspect-ratio: 1 / 1;
+}
+
+.search-limits {
+  background-color: #161717;
+}
+
+.search-limits input {
+  background-color: #2a2a2b;
+  border-color: #d9d9d9;
+  border-width: 1px;
+}
+
+.search-button {
+  background-color: #6b8aeb;
+}
+
+.save-button {
+  background-color: #845ed7;
+}
