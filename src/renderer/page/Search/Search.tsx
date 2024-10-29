@@ -2,6 +2,89 @@ import Map from '../../component/Map';
 import TabComponent from '../../component/Tab';
 import './style.css';
 
+const mockupData = [
+  {
+    name: 'StoneyBatter',
+    address: 'Dublin 14 Ireland',
+    industry: 'Service',
+    phoneNumber: '+353 1291 0944',
+    email: 'info@irishroofer.ie',
+    website: 'https://irishroofers.ie',
+    googleReview: '4.9',
+    socialLinks: ['https://twitter.com', 'https//www.facebook.com'],
+  },
+  {
+    name: 'StoneyBatter',
+    address: 'Dublin 14 Ireland',
+    industry: 'Service',
+    phoneNumber: '+353 1291 0944',
+    email: 'info@irishroofer.ie',
+    website: 'https://irishroofers.ie',
+    googleReview: '4.9',
+    socialLinks: ['https://twitter.com', 'https//www.facebook.com'],
+  },
+  {
+    name: 'StoneyBatter',
+    address: 'Dublin 14 Ireland',
+    industry: 'Service',
+    phoneNumber: '+353 1291 0944',
+    email: 'info@irishroofer.ie',
+    website: 'https://irishroofers.ie',
+    googleReview: '4.9',
+    socialLinks: ['https://twitter.com', 'https//www.facebook.com'],
+  },
+  {
+    name: 'StoneyBatter',
+    address: 'Dublin 14 Ireland',
+    industry: 'Service',
+    phoneNumber: '+353 1291 0944',
+    email: 'info@irishroofer.ie',
+    website: 'https://irishroofers.ie',
+    googleReview: '4.9',
+    socialLinks: ['https://twitter.com', 'https//www.facebook.com'],
+  },
+  {
+    name: 'StoneyBatter',
+    address: 'Dublin 14 Ireland',
+    industry: 'Service',
+    phoneNumber: '+353 1291 0944',
+    email: 'info@irishroofer.ie',
+    website: 'https://irishroofers.ie',
+    googleReview: '4.9',
+    socialLinks: ['https://twitter.com', 'https//www.facebook.com'],
+  },
+  {
+    name: 'StoneyBatter',
+    address: 'Dublin 14 Ireland',
+    industry: 'Service',
+    phoneNumber: '+353 1291 0944',
+    email: 'info@irishroofer.ie',
+    website: 'https://irishroofers.ie',
+    googleReview: '4.9',
+    socialLinks: ['https://twitter.com', 'https//www.facebook.com'],
+  },
+  {
+    name: 'StoneyBatter',
+    address: 'Dublin 14 Ireland',
+    industry: 'Service',
+    phoneNumber: '+353 1291 0944',
+    email: 'info@irishroofer.ie',
+    website: 'https://irishroofers.ie',
+    googleReview: '4.9',
+    socialLinks: ['https://twitter.com', 'https//www.facebook.com'],
+  },
+  {
+    name: 'StoneyBatter',
+    address: 'Dublin 14 Ireland',
+    industry: 'Service',
+    phoneNumber: '+353 1291 0944',
+    email: 'info@irishroofer.ie',
+    website: 'https://irishroofers.ie',
+    googleReview: '4.9',
+    socialLinks: ['https://twitter.com', 'https//www.facebook.com'],
+  },
+];
+
 function Search() {
   return (
     <div className="flex flex-row mx-8">
@@ -21,7 +104,7 @@ function Search() {
         </div>
       </div>
       <div className="flex-1 ml-5 search-result">
-        <TabComponent />
+        <TabComponent data={mockupData} />
       </div>
     </div>
   );

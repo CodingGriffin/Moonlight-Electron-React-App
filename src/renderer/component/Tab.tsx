@@ -1,25 +1,56 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import ResultTable from './ResultTable';
 
-function TabComponent() {
-  // Define the tabs and their corresponding content
-  const initialTabs = [
-    { label: 'Tab 1', content: 'Content for Tab 1' },
-    { label: 'Tab 2', content: 'Content for Tab 2' },
-    { label: 'Tab 3', content: 'Content for Tab 3' },
-  ];
+import filterSvg from '../../../assets/images/button_icon/filter.svg';
+import downloadSvg from '../../../assets/images/button_icon/download.svg';
 
-  const [tabs, setTabs] = useState(initialTabs);
+interface Result {
+  name: string;
+  address: string;
+  industry: string;
+  phoneNumber: string;
+  email: string;
+  website: string;
+  googleReview: string;
+  socialLinks: string[];
+}
+interface TabData {
+  label: string;
+  content: Result[];
+}
 
-  // State to keep track of the active tab index
+interface TabComponentProps {
+  data: Result[];
+}
+
+function TabComponent({ data }: TabComponentProps) {
+  const [tabs, setTabs] = useState<TabData[]>([]);
   const [activeTabIndex, setActiveTabIndex] = useState(0);
 
-  // Function to handle tab change
+  useEffect(() => {
+    const newTabLabel = 'New Tab';
+
+    setTabs((prevTabs) => {
+      const updatedTabs = [...prevTabs];
+      if (updatedTabs[activeTabIndex]) {
+        updatedTabs[activeTabIndex].content = data;
+      } else {
+        updatedTabs.push({
+          label: newTabLabel,
+          content: data,
+        });
+      }
+      return updatedTabs;
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
+
   const handleTabChange = (index: React.SetStateAction<number>) => {
     setActiveTabIndex(index);
   };
 
   const addTab = () => {
-    setTabs([...tabs, { label: 'newTab', content: 'Content for NewTab' }]);
+    setTabs([...tabs, { label: 'newTab', content: [] }]);
   };
 
   return (
@@ -39,7 +70,7 @@ function TabComponent() {
               borderBottomWidth: activeTabIndex === index ? '3px' : '0',
             }}
           >
-            {tab.label}
+            Tab{index + 1}
           </div>
         ))}
         <div
@@ -52,8 +83,26 @@ function TabComponent() {
           +
         </div>
       </div>
-      <h2>{tabs[activeTabIndex].label}</h2>
-      <p>{tabs[activeTabIndex].content}</p>
+      <div className="py-10 px-8 flex justify-between">
+        <h2 className="flex">Search Results</h2>
+        <div className="flex">
+          <button
+            className="flex flex-row items-center mr-5 h-10 button-filter"
+            type="button"
+          >
+            <img className="mr-5" src={filterSvg} alt="filter" />
+            <span className="text-md">Filter</span>
+          </button>
+          <button
+            className="flex flex-row items-center ml-5 h-10 button-export"
+            type="button"
+          >
+            <img className="mr-5" src={downloadSvg} alt="export" />
+            <span className="text-black">Export</span>
+          </button>
+        </div>
+      </div>
+      <ResultTable data={data} />
     </div>
   );
 }
