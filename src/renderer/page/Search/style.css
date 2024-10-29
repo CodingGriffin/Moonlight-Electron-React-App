@@ -19,3 +19,8 @@
 .save-button {
   background-color: #845ed7;
 }
+
+.search-result {
+  background-color: #161717;
+  border-radius: 3%;
+}

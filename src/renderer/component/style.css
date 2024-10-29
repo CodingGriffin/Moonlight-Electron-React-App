@@ -34,3 +34,14 @@
   border-top-left-radius: 20%;
   border-bottom-left-radius: 20%;
 }
+
+
+.tabs {
+  border-bottom: #5b5b5c;
+  border-bottom-width: 1px;
+  border-style: solid;
+}
+
+.tab {
+  cursor: 'pointer';
+}
