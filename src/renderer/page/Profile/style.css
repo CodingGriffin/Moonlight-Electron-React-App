@@ -1,0 +1,29 @@
+.profile-bg {
+  background-color: #161717;
+}
+
+.save-btn {
+  background-color: #8452d7;
+  color: white;
+}
+
+.upload-btn {
+  background-color: #f0cb41;
+  color: white;
+}
+
+.profile-input {
+  background-color: #343535;
+  padding-left: 10px;
+}
+
+.full-name {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.specify-name {
+  color: #b2b3b3;
+  font-size: 20px;
+}
