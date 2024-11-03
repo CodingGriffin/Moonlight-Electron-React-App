@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint global-require: off, no-console: off, promise/always-return: off */
 
 /**
@@ -14,6 +15,8 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
+
+const server = require('./server');
 
 class AppUpdater {
   constructor() {
@@ -128,6 +131,8 @@ app.on('window-all-closed', () => {
 app
   .whenReady()
   .then(() => {
+    // eslint-disable-next-line no-unused-expressions
+    server;
     createWindow();
     app.on('activate', () => {
       // On macOS it's common to re-create a window in the app when the
@@ -136,3 +141,8 @@ app
     });
   })
   .catch(console.log);
+ipcMain.on('tokenReceived', (tokens) => {
+  console.log('Received token from server =======================>', tokens);
+  // Send the token to the renderer process
+  mainWindow?.webContents.send('login-result', tokens);
+});

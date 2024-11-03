@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+// import { GoogleLogin } from 'react-google-login';
 import backgroundBg from '../../../../assets/images/login/login_bg.svg';
 import vector from '../../../../assets/images/login/vector.png';
 import eye from '../../../../assets/images/login/password_eye.svg';
@@ -7,7 +8,16 @@ import './style.css';
 
 function Login(this: any) {
   const [showPassword, setShowPassword] = useState(false);
+  // calling IPC exposed from preload script
 
+  const handleLogin = () => {
+    window.open('http://localhost:3001/auth/google', '_blank');
+    // window.electron.ipcAuthRenderer.sendMessage('login-with-google', ['ping']);
+    window.electron.ipcAuthResultRenderer.on('login-result', (result) => {
+      console.log('=====================result=======================');
+      console.log('User info:', result);
+    });
+  };
   const togglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);
   };
@@ -87,6 +97,18 @@ function Login(this: any) {
             >
               <span className="mx-2">CONTINUE</span>
               <img className="mx-2" src={vector} alt="vector" />
+            </button>
+          </div>
+          <div>
+            {/* <GoogleLogin
+              clientId="368030744985-mqgu7lkgg56d9b4kfh4mv9v1bic0tevu.apps.googleusercontent.com"
+              buttonText="Login with Google"
+              onSuccess={onSuccess}
+              onFailure={onFailure}
+              cookiePolicy="single_host_origin"
+            /> */}
+            <button type="button" onClick={handleLogin}>
+              Login
             </button>
           </div>
         </div>
