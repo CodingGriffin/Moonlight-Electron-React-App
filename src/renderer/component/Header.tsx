@@ -14,11 +14,6 @@ function Header() {
           src={searchIconWhite}
           alt="search icon"
         />
-        <input
-          className="rounded-full w-4/5 search"
-          type="text"
-          placeholder="Search here..."
-        />
       </div>
       <div className="">DashBoard</div>
       <div className="flex flex-row justify-between">

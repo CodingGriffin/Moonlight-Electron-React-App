@@ -6,12 +6,12 @@ import downloadSvg from '../../../assets/images/button_icon/download.svg';
 
 interface Result {
   name: string;
-  address: string;
+  formatted_address: string;
   industry: string;
   phoneNumber: string;
   email: string;
   website: string;
-  googleReview: string;
+  rating: string;
   socialLinks: string[];
 }
 interface TabData {

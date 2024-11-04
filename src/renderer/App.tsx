@@ -3,12 +3,12 @@ import './App.css';
 import Layout from './component/Layout';
 import Login from './page/login/Login';
 import Dashboard from './page/Dashboard/Dashboard';
-import Search from './page/Search/Search';
 import Sheet from './page/Sheet/Sheet';
 import History from './page/History/History';
 import Favorite from './page/Favorite/Favorite';
 import Email from './page/Email/Email';
 import Profile from './page/Profile/Profile';
+import SearchContainer from './container/Search';
 
 export default function App() {
   return (
@@ -17,7 +17,7 @@ export default function App() {
         <Route path="/" element={<Login />} />
         <Route path="/after" element={<Layout />}>
           <Route index element={<Dashboard />} />
-          <Route path="search" element={<Search />} />
+          <Route path="search" element={<SearchContainer />} />
           <Route path="sheet" element={<Sheet />} />
           <Route path="history" element={<History />} />
           <Route path="favorite" element={<Favorite />} />

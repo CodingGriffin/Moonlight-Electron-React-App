@@ -14,8 +14,9 @@ function Login(this: any) {
     window.open('http://localhost:3001/auth/google', '_blank');
     // window.electron.ipcAuthRenderer.sendMessage('login-with-google', ['ping']);
     window.electron.ipcAuthResultRenderer.on('login-result', (result) => {
-      console.log('=====================result=======================');
       console.log('User info:', result);
+      // eslint-disable-next-line no-use-before-define
+      navigate('/after');
     });
   };
   const togglePasswordVisibility = () => {
@@ -92,23 +93,11 @@ function Login(this: any) {
           <div className="flex items-center justify-center w-1/2 mt-10">
             <button
               type="button"
-              onClick={() => navigate('/after')}
+              onClick={handleLogin}
               className="w-full h-2/3 flex items-center justify-center mt-5 continue-button"
             >
               <span className="mx-2">CONTINUE</span>
               <img className="mx-2" src={vector} alt="vector" />
-            </button>
-          </div>
-          <div>
-            {/* <GoogleLogin
-              clientId="368030744985-mqgu7lkgg56d9b4kfh4mv9v1bic0tevu.apps.googleusercontent.com"
-              buttonText="Login with Google"
-              onSuccess={onSuccess}
-              onFailure={onFailure}
-              cookiePolicy="single_host_origin"
-            /> */}
-            <button type="button" onClick={handleLogin}>
-              Login
             </button>
           </div>
         </div>

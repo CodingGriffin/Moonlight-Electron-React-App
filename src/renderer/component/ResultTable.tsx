@@ -1,12 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 interface Result {
   name: string;
-  address: string;
+  formatted_address: string;
   industry: string;
   phoneNumber: string;
   email: string;
   website: string;
-  googleReview: string;
+  rating: string;
   socialLinks: string[];
 }
 
@@ -17,57 +17,64 @@ interface TabComponentProps {
 function ResultTable({ data }: TabComponentProps) {
   return (
     <div className="relative h-auto">
-      <table className="w-full text-sm text-center text-gray-500">
+      <table className="min-w-full table-fixed text-sm text-center text-gray-500">
         <thead className="text-sm">
           <tr className="">
-            <th scope="col" className="pl-5">
+            <th scope="col" className="w-1/12 pl-5">
               No
             </th>
-            <th scope="col" className="">
+            <th scope="col" className="w-2/12">
               Name
             </th>
-            <th scope="col" className="">
+            <th scope="col" className="w-3/12">
               Address
             </th>
-            <th scope="col" className="">
+            {/* <th scope="col" className="w-2/12">
               Industry
-            </th>
-            <th scope="col" className="">
+            </th> */}
+            <th scope="col" className="w-2/12">
               PhoneNumber
             </th>
-            <th scope="col" className="">
+            <th scope="col" className="w-2/12">
               Email
             </th>
-            <th scope="col" className="">
+            <th scope="col" className="w-2/12">
               Website
             </th>
-            <th scope="col" className="">
+            <th scope="col" className="w-2/12  pr-5">
               GoogleReview
             </th>
-            <th scope="col" className="pr-5">
+            {/* <th scope="col" className="w-2/12 pr-5">
               SocialLinks
-            </th>
+            </th> */}
           </tr>
         </thead>
         <tbody className="text-white">
           {data && data.length ? (
             data.map((_item: Result, index) => {
               return (
-                <tr className="border-t border-gray-500 border-solid">
+                <tr
+                  className="border-t border-gray-500 border-solid"
+                  key={index}
+                >
                   <th className="px-2 py-5 pl-5">{index + 1}</th>
                   <td className="px-2">{_item.name}</td>
-                  <td className="px-2">{_item.address}</td>
-                  <td className="px-2">{_item.industry}</td>
+                  <td className="px-2">{_item.formatted_address}</td>
+                  {/* <td className="px-2">{_item.industry}</td> */}
                   <td className="px-2">{_item.phoneNumber}</td>
                   <td className="px-2">{_item.email}</td>
                   <td className="px-2">{_item.website}</td>
-                  <td className="px-2">{_item.googleReview}</td>
-                  <td className="px-2 pr-5">{_item.socialLinks}</td>
+                  <td className="px-2 pr-5">{_item.rating}</td>
+                  {/* <td className="px-2 pr-5">{_item.socialLinks}</td> */}
                 </tr>
               );
             })
           ) : (
-            <div>No Data To Show</div>
+            <tr>
+              <td colSpan={9} className="text-center">
+                No Data To Show
+              </td>
+            </tr>
           )}
         </tbody>
       </table>
