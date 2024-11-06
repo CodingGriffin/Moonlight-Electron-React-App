@@ -17,8 +17,10 @@ const mockupData = [
     subject: 'fix our roofers',
   },
 ];
-
-function Email() {
+interface EmailProps {
+  sendEmail: (data: any) => Promise<string>;
+}
+function Email({ sendEmail }: EmailProps) {
   return (
     <div className="rounded-3xl pb-10 email-bg mx-10">
       <div className="py-10 px-8 flex justify-between">
@@ -41,6 +43,56 @@ function Email() {
         </div>
       </div>
       <EmailTable data={mockupData} />
+
+      <div
+        className="relative z-10"
+        aria-labelledby="modal-title"
+        role="dialog"
+        aria-modal="true"
+      >
+        {/* <div
+          className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+          aria-hidden="true"
+        /> */}
+        <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+          <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+            <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+              <div className="email-header px-3 py-3">New Message</div>
+              <div className="bg-black px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                <input
+                  className="w-full bg-black border-b-2 border-gray-600 py-1 placeholder-gray-500 outline-none focus:border-b-2 focus:border-gray-600"
+                  type="text"
+                  placeholder="Recipients"
+                />
+                <input
+                  className="w-full bg-black border-b-2 border-gray-600 py-1 placeholder-gray-500 outline-none focus:border-b-2 focus:border-gray-600 my-2"
+                  type="text"
+                  placeholder="Subject"
+                />
+                <textarea
+                  className="w-full text-white bg-black border-2 p-2 border-gray-600 placeholder-gray-500 outline-none"
+                  maxLength={50}
+                  placeholder="Body Text"
+                />
+              </div>
+              <div className="bg-black px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                <button
+                  type="button"
+                  className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto"
+                >
+                  Send
+                </button>
+                <button
+                  type="button"
+                  className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

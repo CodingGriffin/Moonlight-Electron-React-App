@@ -40,14 +40,9 @@ app.get('/auth/google/callback', async (req, res) => {
   if (code) {
     const { tokens } = await oauth2Client.getToken(code);
     oauth2Client.setCredentials(tokens);
-    console.log('tokens in server.js', tokens);
-    const response = await axios.post(
-      'http://localhost:5000/api/user/google_auth',
-      {
-        token: tokens,
-      },
-    );
-    console.log(response);
+    await axios.post('http://localhost:5000/api/user/google_auth', {
+      token: tokens,
+    });
     // Optionally, get user info
     // const oauth2 = google.oauth2({ auth: oauth2Client, version: 'v2' });
     // const userInfo = await oauth2.userinfo.get();
