@@ -21,9 +21,10 @@ interface TabData {
 
 interface TabComponentProps {
   data: Result[];
+  exportResult: (data: any) => Promise<string>;
 }
 
-function TabComponent({ data }: TabComponentProps) {
+function TabComponent({ data, exportResult }: TabComponentProps) {
   const [tabs, setTabs] = useState<TabData[]>([]);
   const [activeTabIndex, setActiveTabIndex] = useState(0);
 
@@ -47,6 +48,11 @@ function TabComponent({ data }: TabComponentProps) {
 
   const handleTabChange = (index: React.SetStateAction<number>) => {
     setActiveTabIndex(index);
+  };
+
+  const handleExportButton = async () => {
+    const googelSheetUri = await exportResult(data);
+    window.open(googelSheetUri, '_blank');
   };
 
   const addTab = () => {
@@ -96,6 +102,7 @@ function TabComponent({ data }: TabComponentProps) {
           <button
             className="flex flex-row items-center ml-5 h-10 button-export"
             type="button"
+            onClick={handleExportButton}
           >
             <img className="mr-5" src={downloadSvg} alt="export" />
             <span className="text-black">Export</span>

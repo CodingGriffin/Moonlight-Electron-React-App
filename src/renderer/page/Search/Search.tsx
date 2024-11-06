@@ -12,9 +12,10 @@ interface SearchData {
 interface SearchProps {
   result: any; // Adjust according to your data structure
   getResult: (data: SearchData) => void;
+  exportResult: (data: any) => Promise<string>;
 }
 
-function Search({ result, getResult }: SearchProps) {
+function Search({ result, getResult, exportResult }: SearchProps) {
   const [range, setRangeValue] = useState(50);
   const [query, setQuery] = useState('');
   const [count, setCount] = useState(10);
@@ -122,7 +123,7 @@ function Search({ result, getResult }: SearchProps) {
         </div>
       </div>
       <div className="flex-1 w-2/3 ml-5 search-result">
-        <TabComponent data={result} />
+        <TabComponent data={result} exportResult={exportResult} />
       </div>
     </div>
   );

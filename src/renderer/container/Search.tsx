@@ -24,13 +24,27 @@ function SearchContainer() {
     }
   };
 
-  // const exportResult = async ()
+  const exportResult = async (data: any) => {
+    try {
+      const response = await axios.post(
+        'http://localhost:5000/api/result/export',
+        { data },
+      );
+      return response.data.url;
+    } catch (error) {
+      console.error('Error exporting to GoogleSheet:', error);
+    }
+
+    return 'result';
+  };
 
   useEffect(() => {
     // You can perform side effects here if needed
   }, [result]);
 
-  return <Search result={result} getResult={getResult} />;
+  return (
+    <Search result={result} getResult={getResult} exportResult={exportResult} />
+  );
 }
 
 export default SearchContainer;
