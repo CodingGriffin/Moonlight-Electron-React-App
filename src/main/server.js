@@ -1,7 +1,8 @@
-const express = require('express');
-const { google } = require('googleapis');
-const cors = require('cors');
-const { ipcMain } = require('electron');
+import express from 'express';
+import { google } from 'googleapis';
+import cors from 'cors';
+import { ipcMain } from 'electron';
+import axios from 'axios';
 
 const app = express();
 const PORT = 3001; // Choose a port for your server
@@ -26,6 +27,7 @@ app.get('/auth/google', (req, res) => {
     scope: [
       'https://www.googleapis.com/auth/userinfo.profile',
       'https://www.googleapis.com/auth/userinfo.email',
+      'https://www.googleapis.com/auth/gmail.send',
     ],
   });
   res.redirect(authUrl);
@@ -39,13 +41,19 @@ app.get('/auth/google/callback', async (req, res) => {
     const { tokens } = await oauth2Client.getToken(code);
     oauth2Client.setCredentials(tokens);
     console.log('tokens in server.js', tokens);
-    ipcMain.emit('tokenReceived', tokens);
+    const response = await axios.post(
+      'http://localhost:5000/api/user/google_auth',
+      {
+        token: tokens,
+      },
+    );
+    console.log(response);
     // Optionally, get user info
-    const oauth2 = google.oauth2({ auth: oauth2Client, version: 'v2' });
-    const userInfo = await oauth2.userinfo.get();
-
+    // const oauth2 = google.oauth2({ auth: oauth2Client, version: 'v2' });
+    // const userInfo = await oauth2.userinfo.get();
     // Send user info back to the Electron app
-    res.send(`User Info: ${JSON.stringify(userInfo.data)}`);
+    res.send('1123');
+    ipcMain.emit('tokenReceived', tokens);
   } else {
     res.send('No code received');
   }

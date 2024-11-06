@@ -5,7 +5,13 @@ import Search from '../page/Search/Search';
 function SearchContainer() {
   const [result, setResult] = useState([]);
 
-  const getResult = async (data: { query: string; num: number }) => {
+  const getResult = async (data: {
+    query: string;
+    num: number;
+    lat: number;
+    lng: number;
+    radius: number;
+  }) => {
     try {
       const response = await axios.get(
         'http://localhost:5000/api/search/search',
@@ -13,7 +19,9 @@ function SearchContainer() {
           params: {
             q: data.query,
             num: data.num,
-            // Add any other parameters you need here
+            lat: data.lat,
+            lng: data.lng,
+            radius: data.radius,
           },
         },
       );

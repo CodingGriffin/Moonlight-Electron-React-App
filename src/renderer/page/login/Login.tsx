@@ -11,10 +11,28 @@ function Login(this: any) {
   // calling IPC exposed from preload script
 
   const handleLogin = () => {
-    window.open('http://localhost:3001/auth/google', '_blank');
+    // const authWindow = window.open(
+    //   'http://localhost:3001/auth/google', // Backend endpoint to start Google OAuth
+    //   '_blank',
+    //   'width=500,height=600,resizable=no,scrollbars=yes',
+    // );
+
+    window.electron.ipcAuthRenderer.sendMessage('login-with-google', {});
+
+    // window.addEventListener('message', (event) => {
+    //   if (event.data === 'auth-success') {
+    //     // authWindow?.close();
+    //     // Optional: Take any additional actions after authentication (e.g., updating the UI)
+    //   }
+    // });
+
+    // window.open('http://localhost:3001/auth/google', '_blank');
     // window.electron.ipcAuthRenderer.sendMessage('login-with-google', ['ping']);
     window.electron.ipcAuthResultRenderer.on('login-result', (result) => {
       console.log('User info:', result);
+      // authWindow?.close();
+
+      localStorage.setItem('token', result as string);
       // eslint-disable-next-line no-use-before-define
       navigate('/after');
     });

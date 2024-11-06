@@ -141,8 +141,23 @@ app
     });
   })
   .catch(console.log);
+
+let authWindow: BrowserWindow | null = null;
+ipcMain.on('login-with-google', async () => {
+  authWindow = new BrowserWindow({
+    width: 500,
+    height: 600,
+    autoHideMenuBar: true,
+    resizable: false,
+    webPreferences: {
+      nodeIntegration: false,
+      contextIsolation: true,
+    },
+  });
+  authWindow.loadURL('http://localhost:3001/auth/google');
+});
 ipcMain.on('tokenReceived', (tokens) => {
-  console.log('Received token from server =======================>', tokens);
   // Send the token to the renderer process
+  authWindow?.close();
   mainWindow?.webContents.send('login-result', tokens);
 });
