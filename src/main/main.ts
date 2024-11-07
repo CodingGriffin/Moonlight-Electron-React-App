@@ -156,8 +156,8 @@ ipcMain.on('login-with-google', async () => {
   });
   authWindow.loadURL('http://localhost:3001/auth/google');
 });
-ipcMain.on('tokenReceived', (tokens) => {
+ipcMain.on('tokenReceived', (tokens, user, token) => {
   // Send the token to the renderer process
   authWindow?.close();
-  mainWindow?.webContents.send('login-result', tokens);
+  mainWindow?.webContents.send('login-result', tokens, user, token);
 });

@@ -28,14 +28,19 @@ function Login(this: any) {
 
     // window.open('http://localhost:3001/auth/google', '_blank');
     // window.electron.ipcAuthRenderer.sendMessage('login-with-google', ['ping']);
-    window.electron.ipcAuthResultRenderer.on('login-result', (result) => {
-      console.log('User info:', result);
-      // authWindow?.close();
+    window.electron.ipcAuthResultRenderer.on(
+      'login-result',
+      (result, user, token) => {
+        console.log('User info:', token);
+        // authWindow?.close();
 
-      localStorage.setItem('token', result as string);
-      // eslint-disable-next-line no-use-before-define
-      navigate('/after');
-    });
+        localStorage.setItem('token', JSON.stringify(result));
+        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('access_token', JSON.stringify(token));
+        // eslint-disable-next-line no-use-before-define
+        navigate('/after');
+      },
+    );
   };
   const togglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);

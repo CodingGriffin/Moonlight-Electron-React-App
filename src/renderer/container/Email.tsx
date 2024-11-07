@@ -1,56 +1,58 @@
-// import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Email from '../page/Email/Email';
 
 function EmailContainer() {
-  // const [result, setResult] = useState([]);
+  const [emails, setEmails] = useState([]);
 
-  // const getResult = async (data: {
-  //   query: string;
-  //   num: number;
-  //   lat: number;
-  //   lng: number;
-  //   radius: number;
-  // }) => {
-  //   try {
-  //     const response = await axios.get(
-  //       'http://localhost:5000/api/search/search',
-  //       {
-  //         params: {
-  //           q: data.query,
-  //           num: data.num,
-  //           lat: data.lat,
-  //           lng: data.lng,
-  //           radius: data.radius,
-  //         },
-  //       },
-  //     );
+  const getEmails = async () => {
+    const token = localStorage.getItem('access_token');
 
-  //     setResult(response.data.scrapedData); // Adjust according to your API response structure
-  //   } catch (error) {
-  //     console.error('Error fetching search results:', error);
-  //   }
-  // };
+    try {
+      const response = await axios.get('http://localhost:5000/api/email', {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(token || '')}`,
+          'Content-Type': 'application/json', // Optional, depending on your API
+        },
+      });
 
+      await setEmails(response.data);
+    } catch (error) {
+      console.error('Error Sending Email:', error);
+    }
+  };
   const sendEmail = async (data: any) => {
+    const token = localStorage.getItem('access_token');
+
     try {
       const response = await axios.post(
         'http://localhost:5000/api/email/send_email',
         { data },
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(token || '')}`,
+            'Content-Type': 'application/json', // Optional, depending on your API
+          },
+        },
       );
-      return response.data.msg;
-    } catch (error) {
-      console.error('Error exporting to GoogleSheet:', error);
-    }
 
-    return 'result';
+      console.log(response);
+
+      await setEmails(response.data);
+    } catch (error) {
+      console.error('Error Sending Email:', error);
+    }
   };
 
-  // useEffect(() => {
-  //   // You can perform side effects here if needed
-  // }, [result]);
+  useEffect(() => {
+    getEmails();
+  }, []);
 
-  return <Email sendEmail={sendEmail} />;
+  useEffect(() => {
+    // You can perform side effects here if needed
+  }, [emails]);
+
+  return <Email sendEmail={sendEmail} emails={emails} />;
 }
 
 export default EmailContainer;

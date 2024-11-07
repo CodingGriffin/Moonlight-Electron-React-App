@@ -1,26 +1,37 @@
+import React, { useState } from 'react';
+
 import EmailTable from '../../component/EmailTable';
 import binSvg from '../../../../assets/images/email/bin.svg';
 import pencilSvg from '../../../../assets/images/email/pencil.svg';
 import './style.css';
+import { isWithinInterval } from 'date-fns';
 
-const mockupData = [
-  {
-    to: 'info@irishroofer.ie',
-    subject: 'fix our roofers',
-  },
-  {
-    to: 'info@irishroofer.ie',
-    subject: 'fix our roofers',
-  },
-  {
-    to: 'info@irishroofer.ie',
-    subject: 'fix our roofers',
-  },
-];
 interface EmailProps {
-  sendEmail: (data: any) => Promise<string>;
+  sendEmail: (data: any) => void;
+  emails: any;
 }
-function Email({ sendEmail }: EmailProps) {
+function Email({ sendEmail, emails }: EmailProps) {
+  const [recipient, setRecipient] = useState('');
+  const [subject, setSubject] = useState('');
+  const [message, setMessage] = useState('');
+  const [isWriting, setIsWriting] = useState(false);
+
+  const handleSendBtn = () => {
+    const tokens = localStorage.getItem('token');
+    const parsedTokens = JSON.parse(tokens || '');
+    const accessToken: string = parsedTokens?.access_token;
+    const refreshToken: string = parsedTokens?.refresh_token;
+    sendEmail({
+      recipientEmail: recipient,
+      subject,
+      message,
+      accessToken,
+      refreshToken,
+    });
+
+    setIsWriting(!isWriting);
+  };
+
   return (
     <div className="rounded-3xl pb-10 email-bg mx-10">
       <div className="py-10 px-8 flex justify-between">
@@ -35,6 +46,9 @@ function Email({ sendEmail }: EmailProps) {
           </button>
           <button
             className="flex flex-row items-center ml-5 h-10 button-compose"
+            onClick={() => {
+              setIsWriting(!isWriting);
+            }}
             type="button"
           >
             <img className="mr-5" src={pencilSvg} alt="compose" />
@@ -42,7 +56,7 @@ function Email({ sendEmail }: EmailProps) {
           </button>
         </div>
       </div>
-      <EmailTable data={mockupData} />
+      <EmailTable data={emails} />
 
       <div
         className="relative z-10"
@@ -54,7 +68,10 @@ function Email({ sendEmail }: EmailProps) {
           className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
           aria-hidden="true"
         /> */}
-        <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+        <div
+          className="fixed inset-0 z-10 w-screen overflow-y-auto"
+          style={!isWriting ? { display: 'none' } : {}}
+        >
           <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
             <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
               <div className="email-header px-3 py-3">New Message</div>
@@ -62,28 +79,49 @@ function Email({ sendEmail }: EmailProps) {
                 <input
                   className="w-full bg-black border-b-2 border-gray-600 py-1 placeholder-gray-500 outline-none focus:border-b-2 focus:border-gray-600"
                   type="text"
+                  value={recipient}
+                  onChange={(e) => {
+                    setRecipient(e.target.value);
+                  }}
                   placeholder="Recipients"
                 />
                 <input
                   className="w-full bg-black border-b-2 border-gray-600 py-1 placeholder-gray-500 outline-none focus:border-b-2 focus:border-gray-600 my-2"
                   type="text"
+                  value={subject}
+                  onChange={(e) => {
+                    setSubject(e.target.value);
+                  }}
                   placeholder="Subject"
                 />
                 <textarea
-                  className="w-full text-white bg-black border-2 p-2 border-gray-600 placeholder-gray-500 outline-none"
-                  maxLength={50}
+                  className="w-full h-96 text-white bg-black border-2 p-2 border-gray-600 placeholder-gray-500 outline-none"
+                  value={message}
+                  onChange={(e) => {
+                    setMessage(e.target.value);
+                  }}
                   placeholder="Body Text"
                 />
               </div>
               <div className="bg-black px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                 <button
                   type="button"
+                  onClick={handleSendBtn}
                   className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto"
                 >
                   Send
                 </button>
                 <button
                   type="button"
+                  className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto"
+                >
+                  GPT Generate
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsWriting(!isWriting);
+                  }}
                   className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
                 >
                   Cancel

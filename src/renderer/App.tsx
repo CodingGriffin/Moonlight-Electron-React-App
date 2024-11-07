@@ -6,8 +6,8 @@ import Dashboard from './page/Dashboard/Dashboard';
 import Sheet from './page/Sheet/Sheet';
 import History from './page/History/History';
 import Favorite from './page/Favorite/Favorite';
-import Email from './page/Email/Email';
 import Profile from './page/Profile/Profile';
+import Email from './container/Email';
 import SearchContainer from './container/Search';
 
 export default function App() {

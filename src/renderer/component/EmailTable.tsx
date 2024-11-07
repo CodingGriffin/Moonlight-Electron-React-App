@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 interface Result {
-  to: string;
+  recipient: string;
   subject: string;
 }
 
@@ -53,7 +53,7 @@ function EmailTable({ data }: TabComponentProps) {
                     </div>
                   </td>
                   <th className="px-2 py-5">{index + 1}</th>
-                  <td className="px-2">{_item.to}</td>
+                  <td className="px-2">{_item.recipient}</td>
                   <td className="px-2">{_item.subject}</td>
                 </tr>
               );
