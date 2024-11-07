@@ -4,7 +4,6 @@ import EmailTable from '../../component/EmailTable';
 import binSvg from '../../../../assets/images/email/bin.svg';
 import pencilSvg from '../../../../assets/images/email/pencil.svg';
 import './style.css';
-import { isWithinInterval } from 'date-fns';
 
 interface EmailProps {
   sendEmail: (data: any) => void;

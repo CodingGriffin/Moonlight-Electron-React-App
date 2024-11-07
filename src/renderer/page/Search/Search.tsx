@@ -154,32 +154,31 @@ function Search({ result, getResult, exportResult }: SearchProps) {
           )}
         </div>
         <div className="flex-col my-5 p-5 rounded-3xl search-limits">
-          <p className="mb-3">Scraping Limits</p>
           <input
             type="number"
             value={count}
             onChange={handleCountChange}
             className="flex rounded-md w-full"
           />
-        </div>
-        <input
-          value={query}
-          onChange={handleSearchChange}
-          className="rounded-full w-full search"
-          type="text"
-          placeholder="Search here..."
-        />
-        <div className="flex flex-row justify-between my-10">
-          <button
-            onClick={handleSearch}
-            className="flex search-button p-3"
-            type="button"
-          >
-            Search
-          </button>
-          <button className="flex save-button p-3" type="button">
-            Save Results
-          </button>
+          <input
+            value={query}
+            onChange={handleSearchChange}
+            className="rounded-md w-full search mt-5"
+            type="text"
+            placeholder="Search here..."
+          />
+          <div className="flex flex-row justify-between mt-5">
+            <button
+              onClick={handleSearch}
+              className="flex search-button p-3"
+              type="button"
+            >
+              Search
+            </button>
+            <button className="flex save-button p-3" type="button">
+              Save Results
+            </button>
+          </div>
         </div>
       </div>
       <div className="flex-1 w-2/3 ml-5 search-result">

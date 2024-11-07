@@ -7,7 +7,7 @@ import './style.css';
 
 function Header() {
   return (
-    <div className="w-full flex justify-between p-8">
+    <div className="w-full flex justify-between p-5">
       <div className="relative">
         <img
           className="search-icon absolute left-5 top-3"
