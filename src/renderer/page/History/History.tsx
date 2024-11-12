@@ -3,90 +3,11 @@ import filterSvg from '../../../../assets/images/button_icon/filter.svg';
 import downloadSvg from '../../../../assets/images/button_icon/download.svg';
 import './style.css';
 
-const mockupData = [
-  {
-    name: 'StoneyBatter',
-    address: 'Dublin 14 Ireland',
-    industry: 'Service',
-    phoneNumber: '+353 1291 0944',
-    email: 'info@irishroofer.ie',
-    website: 'https://irishroofers.ie',
-    googleReview: '4.9',
-    socialLinks: ['https://twitter.com', 'https//www.facebook.com'],
-  },
-  {
-    name: 'StoneyBatter',
-    address: 'Dublin 14 Ireland',
-    industry: 'Service',
-    phoneNumber: '+353 1291 0944',
-    email: 'info@irishroofer.ie',
-    website: 'https://irishroofers.ie',
-    googleReview: '4.9',
-    socialLinks: ['https://twitter.com', 'https//www.facebook.com'],
-  },
-  {
-    name: 'StoneyBatter',
-    address: 'Dublin 14 Ireland',
-    industry: 'Service',
-    phoneNumber: '+353 1291 0944',
-    email: 'info@irishroofer.ie',
-    website: 'https://irishroofers.ie',
-    googleReview: '4.9',
-    socialLinks: ['https://twitter.com', 'https//www.facebook.com'],
-  },
-  {
-    name: 'StoneyBatter',
-    address: 'Dublin 14 Ireland',
-    industry: 'Service',
-    phoneNumber: '+353 1291 0944',
-    email: 'info@irishroofer.ie',
-    website: 'https://irishroofers.ie',
-    googleReview: '4.9',
-    socialLinks: ['https://twitter.com', 'https//www.facebook.com'],
-  },
-  {
-    name: 'StoneyBatter',
-    address: 'Dublin 14 Ireland',
-    industry: 'Service',
-    phoneNumber: '+353 1291 0944',
-    email: 'info@irishroofer.ie',
-    website: 'https://irishroofers.ie',
-    googleReview: '4.9',
-    socialLinks: ['https://twitter.com', 'https//www.facebook.com'],
-  },
-  {
-    name: 'StoneyBatter',
-    address: 'Dublin 14 Ireland',
-    industry: 'Service',
-    phoneNumber: '+353 1291 0944',
-    email: 'info@irishroofer.ie',
-    website: 'https://irishroofers.ie',
-    googleReview: '4.9',
-    socialLinks: ['https://twitter.com', 'https//www.facebook.com'],
-  },
-  {
-    name: 'StoneyBatter',
-    address: 'Dublin 14 Ireland',
-    industry: 'Service',
-    phoneNumber: '+353 1291 0944',
-    email: 'info@irishroofer.ie',
-    website: 'https://irishroofers.ie',
-    googleReview: '4.9',
-    socialLinks: ['https://twitter.com', 'https//www.facebook.com'],
-  },
-  {
-    name: 'StoneyBatter',
-    address: 'Dublin 14 Ireland',
-    industry: 'Service',
-    phoneNumber: '+353 1291 0944',
-    email: 'info@irishroofer.ie',
-    website: 'https://irishroofers.ie',
-    googleReview: '4.9',
-    socialLinks: ['https://twitter.com', 'https//www.facebook.com'],
-  },
-];
-
-function History() {
+interface HistoryProps {
+  result: any; // Adjust according to your data structure
+  favorite: (id: any) => void;
+}
+function History({ result, favorite }: HistoryProps) {
   return (
     <div className="rounded-3xl pb-10 history-bg mx-10">
       <div className="py-10 px-8 flex justify-between">
@@ -108,7 +29,7 @@ function History() {
           </button>
         </div>
       </div>
-      <ResultTable data={mockupData} />
+      <ResultTable data={result} favorite={favorite} />
     </div>
   );
 }

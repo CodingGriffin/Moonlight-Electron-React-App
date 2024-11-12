@@ -22,6 +22,8 @@ interface SearchProps {
   result: any; // Adjust according to your data structure
   getResult: (data: SearchData) => void;
   exportResult: (data: any) => Promise<string>;
+  saveResult: (data: SearchData) => void;
+  favorite: (id: any) => void;
 }
 
 interface Coordinate {
@@ -29,7 +31,13 @@ interface Coordinate {
   lng: number;
 }
 
-function Search({ result, getResult, exportResult }: SearchProps) {
+function Search({
+  result,
+  getResult,
+  exportResult,
+  saveResult,
+  favorite,
+}: SearchProps) {
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const [tooltipPosition, setTooltipPosition] = useState<{
     x: number;
@@ -112,6 +120,10 @@ function Search({ result, getResult, exportResult }: SearchProps) {
     }
   };
 
+  const handleSave = async () => {
+    saveResult(result);
+  };
+
   return (
     <div className="flex flex-row mx-8">
       <div className="w-1/3 map">
@@ -175,14 +187,22 @@ function Search({ result, getResult, exportResult }: SearchProps) {
             >
               Search
             </button>
-            <button className="flex save-button p-3" type="button">
+            <button
+              onClick={handleSave}
+              className="flex save-button p-3"
+              type="button"
+            >
               Save Results
             </button>
           </div>
         </div>
       </div>
       <div className="flex-1 w-2/3 ml-5 search-result">
-        <TabComponent data={result} exportResult={exportResult} />
+        <TabComponent
+          data={result}
+          exportResult={exportResult}
+          favorite={favorite}
+        />
       </div>
     </div>
   );

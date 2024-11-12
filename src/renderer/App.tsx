@@ -4,9 +4,10 @@ import Layout from './component/Layout';
 import Login from './page/login/Login';
 import Dashboard from './page/Dashboard/Dashboard';
 import Sheet from './page/Sheet/Sheet';
-import History from './page/History/History';
-import Favorite from './page/Favorite/Favorite';
 import Profile from './page/Profile/Profile';
+
+import Favorite from './container/Favorite';
+import History from './container/History';
 import Email from './container/Email';
 import SearchContainer from './container/Search';
 

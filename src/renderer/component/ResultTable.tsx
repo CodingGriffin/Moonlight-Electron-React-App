@@ -1,5 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import { ReactComponent as FavoriteWhite } from '../../../assets/images/button_icon/favorite_white.svg';
+import { ReactComponent as FavoriteBlack } from '../../../assets/images/button_icon/favorite_black.svg';
+import { ReactComponent as UnFavoriteWhite } from '../../../assets/images/button_icon/unfavorite_white.svg';
+import { ReactComponent as UnFavoriteBlack } from '../../../assets/images/button_icon/unfavorite_black.svg';
+
 interface Result {
+  private _id(_id: any): void;
   name: string;
   formatted_address: string;
   industry: string;
@@ -8,41 +14,46 @@ interface Result {
   website: string;
   rating: string;
   socialLinks: string[];
+  isFavorite: boolean;
 }
 
 interface TabComponentProps {
   data: Result[];
+  favorite: (id: any) => void;
 }
 
-function ResultTable({ data }: TabComponentProps) {
+function ResultTable({ data, favorite }: TabComponentProps) {
   return (
     <div className="relative h-auto">
       <table className="min-w-full table-fixed text-sm text-center text-gray-500">
         <thead className="text-sm">
           <tr className="">
-            <th scope="col" className="w-1/12 pl-5">
+            <th scope="col" className=" pl-5">
               No
             </th>
-            <th scope="col" className="w-2/12">
+            <th scope="col" className="">
               Name
             </th>
-            <th scope="col" className="w-3/12">
+            <th scope="col" className="">
               Address
             </th>
             {/* <th scope="col" className="w-2/12">
               Industry
             </th> */}
-            <th scope="col" className="w-2/12">
+            <th scope="col" className="">
               PhoneNumber
             </th>
-            <th scope="col" className="w-2/12">
+            <th scope="col" className="">
               Email
             </th>
-            <th scope="col" className="w-2/12">
+            <th scope="col" className="">
               Website
             </th>
-            <th scope="col" className="w-2/12  pr-5">
+            <th scope="col" className="">
               GoogleReview
+            </th>
+            <th scope="col" className=" pr-5">
+              <FavoriteBlack />
             </th>
             {/* <th scope="col" className="w-2/12 pr-5">
               SocialLinks
@@ -65,6 +76,9 @@ function ResultTable({ data }: TabComponentProps) {
                   <td className="px-2">{_item.email}</td>
                   <td className="px-2">{_item.website}</td>
                   <td className="px-2 pr-5">{_item.rating}</td>
+                  <td className="px-2 pr-5" onClick={() => {favorite(_item._id); _item.isFavorite = !_item.isFavorite}}>
+                    {_item.isFavorite ? <UnFavoriteBlack /> : <FavoriteBlack />}
+                  </td>
                   {/* <td className="px-2 pr-5">{_item.socialLinks}</td> */}
                 </tr>
               );

@@ -13,6 +13,7 @@ interface Result {
   website: string;
   rating: string;
   socialLinks: string[];
+  isFavorite: boolean;
 }
 interface TabData {
   label: string;
@@ -22,9 +23,10 @@ interface TabData {
 interface TabComponentProps {
   data: Result[];
   exportResult: (data: any) => Promise<string>;
+  favorite: (id: any) => void;
 }
 
-function TabComponent({ data, exportResult }: TabComponentProps) {
+function TabComponent({ data, exportResult, favorite }: TabComponentProps) {
   const [tabs, setTabs] = useState<TabData[]>([]);
   const [activeTabIndex, setActiveTabIndex] = useState(0);
 
@@ -109,7 +111,7 @@ function TabComponent({ data, exportResult }: TabComponentProps) {
           </button>
         </div>
       </div>
-      <ResultTable data={data} />
+      <ResultTable data={data} favorite={favorite} />
     </div>
   );
 }

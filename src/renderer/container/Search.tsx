@@ -46,12 +46,56 @@ function SearchContainer() {
     return 'result';
   };
 
+  const saveResult = async (data: any) => {
+    const token = localStorage.getItem('access_token');
+
+    try {
+      const response = await axios.post(
+        'http://localhost:5000/api/result/save',
+        { data },
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(token || '')}`,
+            'Content-Type': 'application/json', // Optional, depending on your API
+          },
+        },
+      );
+
+      console.log(response);
+
+      // await setEmails(response.data);
+    } catch (error) {
+      console.error('Error Sending Email:', error);
+    }
+  };
+
+  const favorite = async (id: any) => {
+    const token = localStorage.getItem('access_token');
+
+    try {
+      await axios.put(`http://localhost:5000/api/result/favorite?${id}`, {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(token || '')}`,
+          'Content-Type': 'application/json', // Optional, depending on your API
+        },
+      });
+    } catch (error) {
+      console.error('Error Sending Email:', error);
+    }
+  };
+
   useEffect(() => {
     // You can perform side effects here if needed
   }, [result]);
 
   return (
-    <Search result={result} getResult={getResult} exportResult={exportResult} />
+    <Search
+      result={result}
+      getResult={getResult}
+      exportResult={exportResult}
+      saveResult={saveResult}
+      favorite={favorite}
+    />
   );
 }
 
