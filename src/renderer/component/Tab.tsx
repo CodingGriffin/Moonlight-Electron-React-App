@@ -4,6 +4,8 @@ import ResultTable from './ResultTable';
 import filterSvg from '../../../assets/images/button_icon/filter.svg';
 import downloadSvg from '../../../assets/images/button_icon/download.svg';
 
+const XLSX = require('xlsx');
+
 interface Result {
   name: string;
   formatted_address: string;
@@ -29,6 +31,19 @@ interface TabComponentProps {
 function TabComponent({ data, exportResult, favorite }: TabComponentProps) {
   const [tabs, setTabs] = useState<TabData[]>([]);
   const [activeTabIndex, setActiveTabIndex] = useState(0);
+
+  const downloadResult = () => {
+    const wb = XLSX.utils.book_new();
+
+    // Convert the array of objects to a worksheet
+    const ws = XLSX.utils.json_to_sheet(data);
+
+    // Append the worksheet to the workbook
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    // Generate a download link for the Excel file
+    XLSX.writeFile(wb, 'data.xlsx');
+  };
 
   useEffect(() => {
     const newTabLabel = 'New Tab';
@@ -100,6 +115,14 @@ function TabComponent({ data, exportResult, favorite }: TabComponentProps) {
           >
             <img className="mr-5" src={filterSvg} alt="filter" />
             <span className="text-md">Filter</span>
+          </button>
+          <button
+            className="flex flex-row items-center mx-5 h-10 button-download"
+            type="button"
+            onClick={downloadResult}
+          >
+            <img className="mr-5" src={downloadSvg} alt="export" />
+            <span className="text-black">Download</span>
           </button>
           <button
             className="flex flex-row items-center ml-5 h-10 button-export"

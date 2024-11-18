@@ -1,4 +1,3 @@
-
 import ResultTable from '../../component/ResultTable';
 import filterSvg from '../../../../assets/images/button_icon/filter.svg';
 import downloadSvg from '../../../../assets/images/button_icon/download.svg';

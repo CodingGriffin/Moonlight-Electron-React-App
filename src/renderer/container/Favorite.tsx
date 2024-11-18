@@ -30,7 +30,7 @@ function FavoriteContainer() {
 
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/result/favorite/${id}`,
+        `http://localhost:5000/api/result/unfavorite/${id}`,
         {},
         {
           headers: {
