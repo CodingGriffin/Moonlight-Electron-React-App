@@ -9,7 +9,7 @@ function EmailContainer() {
     const token = localStorage.getItem('access_token');
 
     try {
-      const response = await axios.get('http://localhost:5000/api/email', {
+      const response = await axios.get('http://192.168.145.241:5000/api/email', {
         headers: {
           Authorization: `Bearer ${JSON.parse(token || '')}`,
           'Content-Type': 'application/json', // Optional, depending on your API
@@ -26,7 +26,7 @@ function EmailContainer() {
 
     try {
       const response = await axios.post(
-        'http://localhost:5000/api/email/send_email',
+        'http://192.168.145.241:5000/api/email/send_email',
         { data },
         {
           headers: {

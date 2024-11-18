@@ -9,7 +9,7 @@ function HistoryContainer() {
     const token = localStorage.getItem('access_token');
 
     try {
-      const response = await axios.get('http://localhost:5000/api/result', {
+      const response = await axios.get('http://192.168.145.241:5000/api/result', {
         headers: {
           Authorization: `Bearer ${JSON.parse(token || '')}`,
           'Content-Type': 'application/json', // Optional, depending on your API
@@ -25,7 +25,7 @@ function HistoryContainer() {
   const exportResult = async (data: any) => {
     try {
       const response = await axios.post(
-        'http://localhost:5000/api/result/export',
+        'http://192.168.145.241:5000/api/result/export',
         { data },
       );
       return response.data.url;
@@ -41,7 +41,7 @@ function HistoryContainer() {
 
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/result/favorite/${id}`,
+        `http://192.168.145.241:5000/api/result/favorite/${id}`,
         {},
         {
           headers: {
