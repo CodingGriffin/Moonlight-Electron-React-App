@@ -26,6 +26,7 @@ interface SearchProps {
   exportResult: (data: any) => Promise<string>;
   saveResult: (data: SearchData) => void;
   favorite: (id: any) => void;
+  addSheet: (results: any, query: string) => Promise<void>;
 }
 
 interface Coordinate {
@@ -39,6 +40,7 @@ function Search({
   exportResult,
   saveResult,
   favorite,
+  addSheet,
 }: SearchProps) {
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const [tooltipPosition, setTooltipPosition] = useState<{
@@ -129,6 +131,10 @@ function Search({
     saveResult(result);
   };
 
+  const handleAddSheetButton = () => {
+    addSheet(result, query);
+  };
+
   return (
     <div className="flex flex-row mx-8">
       <div className="w-1/3 map">
@@ -212,6 +218,7 @@ function Search({
             data={result}
             exportResult={exportResult}
             favorite={favorite}
+            addSheet={handleAddSheetButton}
           />
         )}
       </div>

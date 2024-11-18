@@ -26,9 +26,15 @@ interface TabComponentProps {
   data: Result[];
   exportResult: (data: any) => Promise<string>;
   favorite: (id: any) => void;
+  addSheet: () => void;
 }
 
-function TabComponent({ data, exportResult, favorite }: TabComponentProps) {
+function TabComponent({
+  data,
+  exportResult,
+  favorite,
+  addSheet,
+}: TabComponentProps) {
   const [tabs, setTabs] = useState<TabData[]>([]);
   const [activeTabIndex, setActiveTabIndex] = useState(0);
 
@@ -65,6 +71,10 @@ function TabComponent({ data, exportResult, favorite }: TabComponentProps) {
 
   const handleTabChange = (index: React.SetStateAction<number>) => {
     setActiveTabIndex(index);
+  };
+
+  const handleAddSheetButton = () => {
+    addSheet();
   };
 
   const handleExportButton = async () => {
@@ -115,6 +125,13 @@ function TabComponent({ data, exportResult, favorite }: TabComponentProps) {
           >
             <img className="mr-5" src={filterSvg} alt="filter" />
             <span className="text-md">Filter</span>
+          </button>
+          <button
+            className="flex flex-row items-center mx-5 h-10 button-download"
+            type="button"
+            onClick={handleAddSheetButton}
+          >
+            <span className="text-black">AddSheet</span>
           </button>
           <button
             className="flex flex-row items-center mx-5 h-10 button-download"
