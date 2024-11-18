@@ -14,7 +14,7 @@ function SearchContainer() {
   }) => {
     try {
       const response = await axios.get(
-        'http://localhost:5000/api/search/search',
+        'http://192.168.145.241:5000/api/search/search',
         {
           params: {
             q: data.query,
@@ -35,7 +35,7 @@ function SearchContainer() {
   const exportResult = async (data: any) => {
     try {
       const response = await axios.post(
-        'http://localhost:5000/api/result/export',
+        'http://192.168.145.241:5000/api/result/export',
         { data },
       );
       return response.data.url;
@@ -51,7 +51,7 @@ function SearchContainer() {
 
     try {
       const response = await axios.post(
-        'http://localhost:5000/api/result/save',
+        'http://192.168.145.241:5000/api/result/save',
         { data },
         {
           headers: {
@@ -73,7 +73,7 @@ function SearchContainer() {
     const token = localStorage.getItem('access_token');
 
     try {
-      await axios.put(`http://localhost:5000/api/result/favorite?${id}`, {
+      await axios.put(`http://192.168.145.241:5000/api/result/favorite?${id}`, {
         headers: {
           Authorization: `Bearer ${JSON.parse(token || '')}`,
           'Content-Type': 'application/json', // Optional, depending on your API

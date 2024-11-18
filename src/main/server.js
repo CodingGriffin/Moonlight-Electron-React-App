@@ -42,7 +42,7 @@ app.get('/auth/google/callback', async (req, res) => {
     const { tokens } = await oauth2Client.getToken(code);
     oauth2Client.setCredentials(tokens);
     const response = await axios.post(
-      'http://localhost:5000/api/user/google_auth',
+      'http://192.168.145.241:5000/api/user/google_auth',
       {
         token: tokens,
       },
