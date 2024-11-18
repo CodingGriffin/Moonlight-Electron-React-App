@@ -22,6 +22,20 @@ function HistoryContainer() {
     }
   };
 
+  const exportResult = async (data: any) => {
+    try {
+      const response = await axios.post(
+        'http://192.168.145.241:5000/api/result/export',
+        { data },
+      );
+      return response.data.url;
+    } catch (error) {
+      console.error('Error exporting to GoogleSheet:', error);
+    }
+
+    return 'result';
+  };
+
   const favorite = async (id: any) => {
     const token = localStorage.getItem('access_token');
 
@@ -51,7 +65,9 @@ function HistoryContainer() {
     // You can perform side effects here if needed
   }, [results]);
 
-  return <History result={results} favorite={favorite} />;
+  return (
+    <History result={results} favorite={favorite} exportResult={exportResult} />
+  );
 }
 
 export default HistoryContainer;

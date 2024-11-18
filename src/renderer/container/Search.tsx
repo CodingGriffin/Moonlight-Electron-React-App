@@ -32,6 +32,29 @@ function SearchContainer() {
     }
   };
 
+  const addSheet = async (results: any, query: string) => {
+    const data = {};
+    data['name'] = query;
+    data['results'] = results;
+
+    const token = localStorage.getItem('access_token');
+
+    try {
+      await axios.post(
+        'http://192.168.145.241:5000/api/sheet/add',
+        { data },
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(token || '')}`,
+            'Content-Type': 'application/json', // Optional, depending on your API
+          },
+        },
+      );
+    } catch (error) {
+      console.error('Error adding to sheet', error);
+    }
+  };
+
   const exportResult = async (data: any) => {
     try {
       const response = await axios.post(
@@ -95,6 +118,7 @@ function SearchContainer() {
       exportResult={exportResult}
       saveResult={saveResult}
       favorite={favorite}
+      addSheet={addSheet}
     />
   );
 }

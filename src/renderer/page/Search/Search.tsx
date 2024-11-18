@@ -8,6 +8,8 @@ import React, {
 } from 'react';
 import Map from '../../component/Map';
 import TabComponent from '../../component/Tab';
+import SearchLoader from '../../component/SearchLoader';
+
 import './style.css';
 
 interface SearchData {
@@ -24,6 +26,7 @@ interface SearchProps {
   exportResult: (data: any) => Promise<string>;
   saveResult: (data: SearchData) => void;
   favorite: (id: any) => void;
+  addSheet: (results: any, query: string) => Promise<void>;
 }
 
 interface Coordinate {
@@ -37,6 +40,7 @@ function Search({
   exportResult,
   saveResult,
   favorite,
+  addSheet,
 }: SearchProps) {
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const [tooltipPosition, setTooltipPosition] = useState<{
@@ -48,6 +52,7 @@ function Search({
   const [range, setRangeValue] = useState(50);
   const [query, setQuery] = useState('');
   const [count, setCount] = useState(10);
+  const [loading, setLoading] = useState(false);
   const [markerPosition, setMarkerPosition] =
     useState<google.maps.LatLng | null>(null);
   const [currentLocation, setCurrentLocation] =
@@ -114,7 +119,9 @@ function Search({
     };
 
     if (typeof getResult === 'function') {
+      await setLoading(true);
       await getResult(searchData);
+      await setLoading(false);
     } else {
       console.error('getResult is not a function');
     }
@@ -122,6 +129,10 @@ function Search({
 
   const handleSave = async () => {
     saveResult(result);
+  };
+
+  const handleAddSheetButton = () => {
+    addSheet(result, query);
   };
 
   return (
@@ -197,12 +208,19 @@ function Search({
           </div>
         </div>
       </div>
-      <div className="flex-1 w-2/3 ml-5 search-result">
-        <TabComponent
-          data={result}
-          exportResult={exportResult}
-          favorite={favorite}
-        />
+      <div className="relative flex-1 w-2/3 ml-5 search-result">
+        {loading ? (
+          <div className="absolute left-1/2 top-1/2">
+            <SearchLoader />
+          </div>
+        ) : (
+          <TabComponent
+            data={result}
+            exportResult={exportResult}
+            favorite={favorite}
+            addSheet={handleAddSheetButton}
+          />
+        )}
       </div>
     </div>
   );
