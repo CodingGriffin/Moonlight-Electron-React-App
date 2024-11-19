@@ -5,6 +5,11 @@ import binSvg from '../../../../assets/images/email/bin.svg';
 import pencilSvg from '../../../../assets/images/email/pencil.svg';
 import './style.css';
 
+const { Configuration, OpenAIApi } = require('openai');
+const openai = new OpenAIApi(new Configuration({
+  apiKey: process.env.OPENAI_API_KEY, // Replace with your OpenAI API key
+}));
+
 interface EmailProps {
   sendEmail: (data: any) => void;
   emails: any;
@@ -14,6 +19,20 @@ function Email({ sendEmail, emails }: EmailProps) {
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
   const [isWriting, setIsWriting] = useState(false);
+
+  const handleGpt = async () => {
+    try {
+        const response = await openai.createCompletion({
+            model: 'text-davinci-003',
+            prompt: `Write a polite email to a business describing the following problem:\n\n${subject}\n\nThe email should be concise and clear.`,
+            max_tokens: 200,
+        });
+        console.log( response.data.choices[0].text.trim());
+    } catch (error) {
+        console.error('Error generating email:', error);
+        throw new Error('Failed to generate email. Please try again.');
+    }
+  }
 
   const handleSendBtn = () => {
     const tokens = localStorage.getItem('token');
@@ -112,6 +131,7 @@ function Email({ sendEmail, emails }: EmailProps) {
                 </button>
                 <button
                   type="button"
+                  onClick={handleGpt}
                   className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto"
                 >
                   GPT Generate
