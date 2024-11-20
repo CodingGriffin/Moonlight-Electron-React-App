@@ -5,10 +5,12 @@ import binSvg from '../../../../assets/images/email/bin.svg';
 import pencilSvg from '../../../../assets/images/email/pencil.svg';
 import './style.css';
 
+import OpenAI from 'openai';
 const { Configuration, OpenAIApi } = require('openai');
-const openai = new OpenAIApi(new Configuration({
-  apiKey: process.env.OPENAI_API_KEY, // Replace with your OpenAI API key
-}));
+const openai = new OpenAI({
+  apiKey: "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", // Replace with your OpenAI API key
+  dangerouslyAllowBrowser: true
+});
 
 interface EmailProps {
   sendEmail: (data: any) => void;
@@ -22,12 +24,24 @@ function Email({ sendEmail, emails }: EmailProps) {
 
   const handleGpt = async () => {
     try {
-        const response = await openai.createCompletion({
-            model: 'text-davinci-003',
-            prompt: `Write a polite email to a business describing the following problem:\n\n${subject}\n\nThe email should be concise and clear.`,
-            max_tokens: 200,
-        });
-        console.log( response.data.choices[0].text.trim());
+      const completion = await openai.chat.completions.create({
+        model: "gpt-3.5",
+        messages: [
+            { role: "system", content: "You are a helpful assistant." },
+            {
+                role: "user",
+                content: "Write a haiku about recursion in programming.",
+            },
+        ],
+    });
+    
+    console.log(completion.choices[0].message);      
+        // const response = await openai.chat.completions.create({
+        //     model: 'text-davinci-003',
+        //     prompt: `Write a polite email to a business describing the following problem:\n\n${subject}\n\nThe email should be concise and clear.`,
+        //     max_tokens: 200,
+        // });
+        // console.log( response.data.choices[0].text.trim());
     } catch (error) {
         console.error('Error generating email:', error);
         throw new Error('Failed to generate email. Please try again.');

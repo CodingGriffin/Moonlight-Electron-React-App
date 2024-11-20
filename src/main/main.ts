@@ -17,12 +17,12 @@ import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 require('dotenv').config();
 
-const { Configuration, OpenAIApi } = require('openai');
+// const { Configuration, OpenAIApi } = require('openai');
 const server = require('./server');
 
-const openai = new OpenAIApi(new Configuration({
-  apiKey: process.env.OPENAI_API_KEY, // Replace with your OpenAI API key
-}));
+// const openai = new OpenAIApi(new Configuration({
+//   apiKey: process.env.OPENAI_API_KEY, // Replace with your OpenAI API key
+// }));
 
 class AppUpdater {
   constructor() {
@@ -168,16 +168,16 @@ ipcMain.on('tokenReceived', (tokens, user, token) => {
   mainWindow?.webContents.send('login-result', tokens, user, token);
 });
 
-ipcMain.handle('generate-email', async (event, userInput) => {
-  try {
-      const response = await openai.createCompletion({
-          model: 'text-davinci-003',
-          prompt: `Write a polite email to a business describing the following problem:\n\n${userInput}\n\nThe email should be concise and clear.`,
-          max_tokens: 200,
-      });
-      return response.data.choices[0].text.trim();
-  } catch (error) {
-      console.error('Error generating email:', error);
-      throw new Error('Failed to generate email. Please try again.');
-  }
-});
+// ipcMain.handle('generate-email', async (event, userInput) => {
+//   try {
+//       const response = await openai.createCompletion({
+//           model: 'text-davinci-003',
+//           prompt: `Write a polite email to a business describing the following problem:\n\n${userInput}\n\nThe email should be concise and clear.`,
+//           max_tokens: 200,
+//       });
+//       return response.data.choices[0].text.trim();
+//   } catch (error) {
+//       console.error('Error generating email:', error);
+//       throw new Error('Failed to generate email. Please try again.');
+//   }
+// });
