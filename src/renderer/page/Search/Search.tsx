@@ -12,6 +12,11 @@ import SearchLoader from '../../component/SearchLoader';
 
 import './style.css';
 
+interface MapPosition {
+  lat: number;
+  lng: number;
+}
+
 interface SearchData {
   query: string;
   num: number;
@@ -49,14 +54,17 @@ function Search({
   }>({ x: 0, y: 0 });
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [coordinate, setCoordinate] = useState<Coordinate>();
+  const [locationValue, setLocationValue] = useState('');
   const [range, setRangeValue] = useState(50);
   const [query, setQuery] = useState('');
   const [count, setCount] = useState(10);
   const [loading, setLoading] = useState(false);
-  const [markerPosition, setMarkerPosition] =
-    useState<google.maps.LatLng | null>(null);
-  const [currentLocation, setCurrentLocation] =
-    useState<google.maps.LatLng | null>(null);
+  const [markerPosition, setMarkerPosition] = useState<MapPosition | null>(
+    null,
+  );
+  const [currentLocation, setCurrentLocation] = useState<MapPosition | null>(
+    null,
+  );
 
   const handleMouseMove = (event: MouseEvent<HTMLInputElement>) => {
     if (inputRef.current) {
@@ -74,8 +82,8 @@ function Search({
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-          setCurrentLocation(new google.maps.LatLng(latitude, longitude));
-          setMarkerPosition(new google.maps.LatLng(latitude, longitude));
+          setCurrentLocation({ lat: latitude, lng: longitude });
+          setMarkerPosition({ lat: latitude, lng: longitude });
         },
         () => {
           console.log('Error getting location');
@@ -86,14 +94,39 @@ function Search({
     }
   }, []);
 
+  const getLocationByKeyword = async () => {
+    try {
+      const response = await fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(locationValue)}&key=AIzaSyD8pk2ZnpR82LXx3IJUXFbaRnhZ27hR4ZY`,
+      );
+      const data = await response.json();
+
+      if (data.results.length > 0) {
+        const { lat, lng } = data.results[0].geometry.location;
+        setMarkerPosition({ lat, lng });
+        setCurrentLocation({ lat, lng });
+      }
+    } catch (error) {
+      console.log('Error fetching location. Please try again.');
+    }
+  };
+
+  const onChangeHandle = async (e: any) => {
+    await setLocationValue(e.target.value);
+    if (locationValue !== '') {
+      // setNoKeyWord(false);
+      await getLocationByKeyword();
+    }
+  };
+
   const onMapClick = useCallback((event: google.maps.MapMouseEvent) => {
     const { latLng } = event;
     if (latLng) {
       const lat = latLng.lat();
       const lng = latLng.lng();
       setCoordinate({ lat, lng });
-      setMarkerPosition(new google.maps.LatLng(lat, lng));
-      setCurrentLocation(new google.maps.LatLng(lat, lng));
+      setMarkerPosition({ lat, lng });
+      setCurrentLocation({ lat, lng });
     }
   }, []);
 
@@ -142,6 +175,13 @@ function Search({
           currentLocation={currentLocation || null}
           markerPosition={markerPosition || null}
           onMapClick={onMapClick}
+        />
+        <input
+          value={locationValue}
+          onChange={onChangeHandle}
+          className="rounded-md w-full search mt-5"
+          type="text"
+          placeholder="location..."
         />
         <div className="input-container w-full">
           <p className="mt-3">Range</p>

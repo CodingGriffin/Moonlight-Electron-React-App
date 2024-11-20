@@ -16,7 +16,7 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Email />} />
+        <Route path="/" element={<Login />} />
         <Route path="/after" element={<Layout />}>
           <Route index element={<Dashboard />} />
           <Route path="search" element={<SearchContainer />} />

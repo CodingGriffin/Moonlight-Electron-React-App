@@ -2,9 +2,14 @@
 import React from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
+interface MapPosition {
+  lat: number;
+  lng: number;
+}
+
 interface TabComponentProps {
-  currentLocation: google.maps.LatLng | null; // Define currentLocation here
-  markerPosition: google.maps.LatLng | null; // Define markerPosition here
+  currentLocation: MapPosition | null; // Define currentLocation here
+  markerPosition: MapPosition | null; // Define markerPosition here
   onMapClick: (event: google.maps.MapMouseEvent) => void;
 }
 
