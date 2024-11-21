@@ -1,43 +1,43 @@
+import { useEffect, useState } from 'react';
 import avatar from '../../../../assets/images/header/avatar.png';
+import DarkToggle from '../../component/DarkToggle';
 import './style.css';
 
 function Profile() {
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    const savedUser: any = JSON.parse(localStorage.getItem('user') || '');
+    console.log('here is the head', savedUser);
+    setUser(savedUser);
+  }, []);
   return (
     <div className="rounded-3xl pb-10 profile-bg mx-10 p-10">
-      <div className="flex justify-end w-full">
+      {/* <div className="flex justify-end w-full">
         <button className="save-btn" type="button">
           Save Changing
         </button>
-      </div>
-      <div className="flex flex-row">
+      </div> */}
+      <div className="flex flex-row justify-between">
         <div className="flex flex-col items-center justify-center mr-20">
           <img
             className="w-36 h-36 mb-5 rounded-full"
-            src={avatar}
+            src={user?.picture}
             alt="avatar"
           />
-          <button
+          {/* <button
             className="w-28 h-10 upload-btn flex items-center justify-center"
             type="button"
           >
             upload
-          </button>
+          </button> */}
         </div>
         <div className="flex flex-col justify-center">
-          <span className="full-name">Full Name</span>
+          <span className="full-name">{user?.name}</span>
           <span className="specify-name">Specify your full name</span>
-          <div>
-            <input
-              className="profile-input rounded-md mr-5 py-1"
-              type="text"
-              placeholder="First Name"
-            />
-            <input
-              className="profile-input rounded-md py-1"
-              type="text"
-              placeholder="Last Name"
-            />
-          </div>
+          <span className="full-name">{user?.email}</span>
+        </div>
+        <div className="flex flex-row justify-center items-center">
+          <DarkToggle />
         </div>
       </div>
     </div>

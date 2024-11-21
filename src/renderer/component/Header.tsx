@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import avatar from '../../../assets/images/header/avatar.png';
 import downArrowBlack from '../../../assets/images/header/down_arrow_black.svg';
 import downArrowWhite from '../../../assets/images/header/down_arrow_white.svg';
@@ -6,6 +7,12 @@ import searchIconWhite from '../../../assets/images/header/search_icon_white.svg
 import './style.css';
 
 function Header() {
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    const savedUser: any = JSON.parse(localStorage.getItem('user') || '');
+    console.log('here is the head', savedUser);
+    setUser(savedUser);
+  }, []);
   return (
     <div className="w-full flex justify-between p-5">
       <div className="relative">
@@ -18,11 +25,15 @@ function Header() {
       <div className="">DashBoard</div>
       <div className="flex flex-row justify-between">
         <div className="flex flex-col mr-3">
-          <span className="name text-sm">Uroos Fatina</span>
-          <span className="email text-xs">Uroos.desing@gmail.com</span>
+          <span className="name text-sm">{user?.name}</span>
+          <span className="email text-xs">{user?.email}</span>
         </div>
         <div className="flex flex-row items-center">
-          <img className="mr-3" src={avatar} alt="avater" />
+          <img
+            className="mr-3 rounded-full w-10 h-10"
+            src={user?.picture}
+            alt="avater"
+          />
           <img className="down-arrow" src={downArrowWhite} alt="down arrow" />
         </div>
       </div>

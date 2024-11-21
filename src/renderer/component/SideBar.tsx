@@ -167,7 +167,13 @@ function SideBar() {
             alt="profile"
           />
         </div>
-        <div className="flex py-4 justify-center">
+        <div
+          className="flex py-4 justify-center"
+          onClick={() => navigate('/')}
+          onKeyDown={() => {}}
+          role="button"
+          tabIndex={0}
+        >
           <img src={logoutBlack} alt="logout" />
         </div>
       </div>
