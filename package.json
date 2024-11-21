@@ -104,6 +104,7 @@
     "@electron/notarize": "^2.3.2",
     "@electron/remote": "^2.1.2",
     "@getstation/electron-google-oauth2": "^14.0.0",
+    "@headlessui/react": "^2.2.0",
     "@react-google-maps/api": "^2.20.3",
     "axios": "^1.7.7",
     "cors": "^2.8.5",

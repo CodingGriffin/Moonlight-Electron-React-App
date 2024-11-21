@@ -34,10 +34,10 @@ interface SearchProps {
   addSheet: (results: any, query: string) => Promise<void>;
 }
 
-interface Coordinate {
-  lat: number;
-  lng: number;
-}
+// interface Coordinate {
+//   lat: number;
+//   lng: number;
+// }
 
 function Search({
   result,
@@ -53,9 +53,9 @@ function Search({
     y: number;
   }>({ x: 0, y: 0 });
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const [coordinate, setCoordinate] = useState<Coordinate>();
+  // const [coordinate, setCoordinate] = useState<Coordinate>();
   const [locationValue, setLocationValue] = useState('');
-  const [range, setRangeValue] = useState(50);
+  const [range, setRangeValue] = useState(20);
   const [query, setQuery] = useState('');
   const [count, setCount] = useState(10);
   const [loading, setLoading] = useState(false);
@@ -119,16 +119,22 @@ function Search({
     }
   };
 
-  const onMapClick = useCallback((event: google.maps.MapMouseEvent) => {
-    const { latLng } = event;
-    if (latLng) {
-      const lat = latLng.lat();
-      const lng = latLng.lng();
-      setCoordinate({ lat, lng });
-      setMarkerPosition({ lat, lng });
-      setCurrentLocation({ lat, lng });
+  // const onMapClick = useCallback((event: google.maps.MapMouseEvent) => {
+  //   const { latLng } = event;
+  //   if (latLng) {
+  //     const lat = latLng.lat();
+  //     const lng = latLng.lng();
+  //     setCoordinate({ lat, lng });
+  //     setMarkerPosition({ lat, lng });
+  //     setCurrentLocation({ lat, lng });
+  //   }
+  // }, []);
+
+  const sentCenterClick = async ({ lat, lng }: MapPosition) => {
+    if (lat) {
+      await setCurrentLocation({ lat, lng });
     }
-  }, []);
+  };
 
   const handleCountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCount(Number(e.target.value));
@@ -147,8 +153,8 @@ function Search({
       query,
       num: count,
       radius: range,
-      lat: coordinate?.lat || -34,
-      lng: coordinate?.lng || 150,
+      lat: currentLocation?.lat || -34,
+      lng: currentLocation?.lng || 150,
     };
 
     if (typeof getResult === 'function') {
@@ -173,8 +179,10 @@ function Search({
       <div className="w-1/3 map">
         <Map
           currentLocation={currentLocation || null}
-          markerPosition={markerPosition || null}
-          onMapClick={onMapClick}
+          // markerPosition={markerPosition || null}
+          range={range * 1000 || 10000}
+          // onMapClick={onMapClick}
+          sentCenter={sentCenterClick}
         />
         <input
           value={locationValue}

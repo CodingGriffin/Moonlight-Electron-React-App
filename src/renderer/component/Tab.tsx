@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import ResultTable from './ResultTable';
+import DropdownExportButton from './DropdownExportButton';
 
 import filterSvg from '../../../assets/images/button_icon/filter.svg';
-import downloadSvg from '../../../assets/images/button_icon/download.svg';
 
 const XLSX = require('xlsx');
 
@@ -133,22 +133,10 @@ function TabComponent({
           >
             <span className="text-black">AddSheet</span>
           </button>
-          <button
-            className="flex flex-row items-center mx-5 h-10 button-download"
-            type="button"
-            onClick={downloadResult}
-          >
-            <img className="mr-5" src={downloadSvg} alt="export" />
-            <span className="text-black">Download</span>
-          </button>
-          <button
-            className="flex flex-row items-center ml-5 h-10 button-export"
-            type="button"
-            onClick={handleExportButton}
-          >
-            <img className="mr-5" src={downloadSvg} alt="export" />
-            <span className="text-black">Export</span>
-          </button>
+          <DropdownExportButton
+            downloadResult={downloadResult}
+            handleExportButton={handleExportButton}
+          />
         </div>
       </div>
       <ResultTable data={data} favorite={favorite} />

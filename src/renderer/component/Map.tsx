@@ -1,16 +1,16 @@
 /* eslint-disable no-undef */
-import React from 'react';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import { GoogleMap, LoadScript } from '@react-google-maps/api';
+import { useEffect, useRef } from 'react';
 
 interface MapPosition {
   lat: number;
   lng: number;
 }
 
-interface TabComponentProps {
-  currentLocation: MapPosition | null; // Define currentLocation here
-  markerPosition: MapPosition | null; // Define markerPosition here
-  onMapClick: (event: google.maps.MapMouseEvent) => void;
+interface MapComponentProps {
+  currentLocation: MapPosition | null;
+  range: number;
+  sentCenter: (point: MapPosition) => void;
 }
 
 const containerStyle = {
@@ -21,21 +21,75 @@ const containerStyle = {
 };
 
 // eslint-disable-next-line react/function-component-definition
-const Map: React.FC<TabComponentProps> = ({
+const Map: React.FC<MapComponentProps> = ({
   currentLocation,
-  markerPosition,
-  onMapClick,
-}) => {
+  range,
+  sentCenter,
+}: MapComponentProps) => {
+  const circleRef = useRef<google.maps.Circle | null>(null); // Circle reference
+  const mapRef = useRef<google.maps.Map | null>(null); // Map reference
+
+  const onLoad = (map: google.maps.Map) => {
+    mapRef.current = map; // Save map reference
+
+    // Initialize circle
+    const circle = new google.maps.Circle({
+      strokeColor: '#0000ff',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: '#0000ff',
+      fillOpacity: 0.35,
+      map,
+      center: currentLocation || { lat: -34.397, lng: 150.644 },
+      radius: range, // Set initial range
+    });
+
+    circleRef.current = circle; // Save circle reference
+
+    // Listen for the 'idle' event
+    map.addListener('idle', () => {
+      if (mapRef.current) {
+        const newCenter = mapRef.current.getCenter();
+        if (newCenter) {
+          const newCenterLatLng = {
+            lat: newCenter.lat(),
+            lng: newCenter.lng(),
+          };
+          sentCenter(newCenterLatLng); // Notify the parent only after interaction ends
+        }
+      }
+    });
+
+    map.addListener('center_changed', () => {
+      if (circleRef.current && mapRef.current) {
+        const newCenter = mapRef.current.getCenter();
+        if (newCenter) {
+          const newCenterLatLng = {
+            lat: newCenter.lat(),
+            lng: newCenter.lng(),
+          };
+
+          circleRef.current.setCenter(newCenterLatLng); // Update circle center
+        }
+      }
+    });
+  };
+
+  // Use effect to update the circle's radius when the range changes
+  useEffect(() => {
+    if (circleRef.current) {
+      circleRef.current.setRadius(range); // Update the radius dynamically
+    }
+  }, [range]); // Dependency on range
+
   return (
     <LoadScript googleMapsApiKey="AIzaSyD8pk2ZnpR82LXx3IJUXFbaRnhZ27hR4ZY">
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={currentLocation || { lat: -34.397, lng: 150.644 }}
         zoom={8}
-        onClick={onMapClick}
-      >
-        <Marker position={markerPosition || { lat: -34.397, lng: 150.644 }} />
-      </GoogleMap>
+        onLoad={onLoad}
+      />
     </LoadScript>
   );
 };
