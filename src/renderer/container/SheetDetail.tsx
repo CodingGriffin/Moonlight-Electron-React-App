@@ -12,7 +12,7 @@ function SheetDetailContainer() {
 
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/sheet/${id}`,
+        `http://192.168.245.241/api/sheet/${id}`,
         {
           headers: {
             Authorization: `Bearer ${JSON.parse(token || '')}`,
@@ -32,7 +32,7 @@ function SheetDetailContainer() {
 
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/result/favorite/${resultId}`,
+        `http://192.168.245.241/api/result/favorite/${resultId}`,
         {},
         {
           headers: {

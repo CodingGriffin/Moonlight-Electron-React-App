@@ -9,12 +9,15 @@ function EmailContainer() {
     const token = localStorage.getItem('access_token');
 
     try {
-      const response = await axios.get('http://192.168.145.241:5000/api/email', {
-        headers: {
-          Authorization: `Bearer ${JSON.parse(token || '')}`,
-          'Content-Type': 'application/json', // Optional, depending on your API
+      const response = await axios.get(
+        'http://192.168.145.241:5000/api/email',
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(token || '')}`,
+            'Content-Type': 'application/json', // Optional, depending on your API
+          },
         },
-      });
+      );
 
       await setEmails(response.data);
     } catch (error) {
