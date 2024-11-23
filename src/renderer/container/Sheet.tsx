@@ -9,12 +9,16 @@ function SheetContainer() {
     const token = localStorage.getItem('access_token');
 
     try {
-      const response = await axios.get('http://192.168.245.241/api/sheet', {
-        headers: {
-          Authorization: `Bearer ${JSON.parse(token || '')}`,
-          'Content-Type': 'application/json', // Optional, depending on your API
+      const response = await axios.get(
+        'http://192.168.145.241:5000/api/sheet',
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(token || '')}`,
+            'Content-Type': 'application/json', // Optional, depending on your API
+          },
         },
-      });
+      );
+      console.log(response.data);
 
       await setResults(response.data);
     } catch (error) {
