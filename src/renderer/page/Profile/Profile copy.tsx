@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import avatar from '../../../../assets/images/header/avatar.png';
 import DarkToggle from '../../component/DarkToggle';
 import './style.css';
-import ModeToggle from '../../component/modeToggle';
 
 function Profile() {
   const [user, setUser] = useState(null);
@@ -38,7 +37,7 @@ function Profile() {
           <span className="full-name">{user?.email}</span>
         </div>
         <div className="flex flex-row justify-center items-center">
-          <ModeToggle />
+          <DarkToggle />
         </div>
       </div>
     </div>
