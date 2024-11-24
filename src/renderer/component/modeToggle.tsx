@@ -30,7 +30,7 @@ const ModeToggle: React.FC = () => {
                         onChange={toggleDarkMode}
                     />
                     <div className="block bg-purple-800 w-12 h-6 rounded-full"></div>
-                    <div className={`dot absolute left-1 top-1 bg-yellow-200 w-4 h-4 rounded-full transition ${isDarkMode ? 'transform translate-x-full bg-blue-400 left-3' : ''}`}></div>
+                    <div className={`dot absolute left-1 top-1 bg-yellow-200 w-4 h-4 rounded-full transition ${isDarkMode ? 'transform translate-x-full bg-gray-200 left-3' : ''}`}></div>
                     {!isDarkMode ? 
                         <div className='absolute top-1 right-1'>
                             <SunIcon />
