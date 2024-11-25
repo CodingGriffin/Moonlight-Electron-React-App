@@ -1,18 +1,15 @@
 <!doctype html>
-<html>
+<html class="h-screen">
   <head>
     <meta charset="utf-8" />
     <meta
       http-equiv="Content-Security-Policy"
       content="script-src 'self' 'unsafe-inline' https://maps.googleapis.com https://apis.google.com https://cdn.tailwindcss.com https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js; object-src 'none';"
     />
-
+    <link href="https://fonts.googleapis.com/css2?family=Qwigley&display=swap" rel="stylesheet">
     <title></title>
     <style>
       /* Optional: To ensure dark mode styles are applied */
-      html {
-          transition: background-color 1s, color 1s;
-      }
   </style>
     <script src="https://cdn.tailwindcss.com">
       tailwind.config = {
@@ -40,10 +37,10 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.css"
       rel="stylesheet"
     />
-    <link href="./style.css" rel="stylesheet" />
+    
   </head>
-  <body class="bg-white text-black dark:bg-gray-800 dark:text-white">
-    <div id="root" class="w-full"></div>
+  <body class="bg-white text-black dark:bg-gray-700 dark:text-white h-full transition-colors duration-300">
+    <div id="root" class="w-full h-full"></div>
   </body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"></script>
 

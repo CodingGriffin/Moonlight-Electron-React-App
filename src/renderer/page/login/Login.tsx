@@ -4,8 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import backgroundBg from '../../../../assets/images/login/login_bg.svg';
 import loginMark from '../../../../assets/images/login/login_mark.svg';
 import vector from '../../../../assets/images/login/vector.png';
-import eye from '../../../../assets/images/login/password_eye.svg';
-import './style.css';
 import ModeToggle from '../../component/modeToggle';
 
 function Login(this: any) {

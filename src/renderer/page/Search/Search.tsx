@@ -9,8 +9,7 @@ import React, {
 import Map from '../../component/Map';
 import TabComponent from '../../component/Tab';
 import SearchLoader from '../../component/SearchLoader';
-
-import './style.css';
+import Header from '../../component/Header';
 
 interface MapPosition {
   lat: number;
@@ -175,102 +174,105 @@ function Search({
   };
 
   return (
-    <div className="flex flex-row mx-8">
-      <div className="w-1/3 map">
-        <Map
-          currentLocation={currentLocation || null}
-          // markerPosition={markerPosition || null}
-          range={range * 1000 || 10000}
-          // onMapClick={onMapClick}
-          sentCenter={sentCenterClick}
-        />
-        <input
-          value={locationValue}
-          onChange={onChangeHandle}
-          className="rounded-md w-full search mt-5"
-          type="text"
-          placeholder="location..."
-        />
-        <div className="input-container w-full">
-          <p className="mt-3">Range</p>
-          <input
-            type="range"
-            min={0}
-            max="200"
-            value={range}
-            onChange={handleRangeChange}
-            onMouseEnter={() => setTooltipVisible(true)}
-            // onMouseLeave={() => setTooltipVisible(false)}
-            onMouseMove={handleMouseMove}
-            className="range range-primary w-full mt-4"
-            ref={inputRef} // Attach ref to the input element
+    <>
+      <Header title={'Business Search'} />
+      <div className="flex flex-row sm:mx-4 lg:mx-8 transition-all duration-300">
+        <div className="w-1/3">
+          <Map
+            currentLocation={currentLocation || null}
+            // markerPosition={markerPosition || null}
+            range={range * 1000 || 10000}
+            // onMapClick={onMapClick}
+            sentCenter={sentCenterClick}
           />
-          {tooltipVisible && (
-            <div
-              className="tooltip"
-              style={{
-                position: 'absolute',
-                left: tooltipPosition.x,
-                top: tooltipPosition.y,
-                backgroundColor: '#333',
-                color: '#fff',
-                padding: '5px',
-                borderRadius: '5px',
-                pointerEvents: 'none', // Prevents mouse events on the tooltip
-                zIndex: 10,
-              }}
-            >
-              {range}km
+          <input
+            value={locationValue}
+            onChange={onChangeHandle}
+            className="rounded-md w-full search sm:mt-3 h-[2rem] lg:mt-5 lg:h-[3rem] dark:bg-gray-700"
+            type="text"
+            placeholder="location..."
+          />
+          <div className="relative w-full">
+            <p className="font-semibold sm:mt-1 text-sm lg:mt-3">Range:</p>
+            <input
+              type="range"
+              min={0}
+              max="200"
+              value={range}
+              onChange={handleRangeChange}
+              onMouseEnter={() => setTooltipVisible(true)}
+              // onMouseLeave={() => setTooltipVisible(false)}
+              onMouseMove={handleMouseMove}
+              className="range range-primary w-full sm:mt-1 lg:mt-4"
+              ref={inputRef} // Attach ref to the input element
+            />
+            {tooltipVisible && (
+              <div
+                className="tooltip"
+                style={{
+                  position: 'absolute',
+                  left: tooltipPosition.x,
+                  top: tooltipPosition.y,
+                  backgroundColor: '#333',
+                  color: '#fff',
+                  padding: '5px',
+                  borderRadius: '5px',
+                  pointerEvents: 'none', // Prevents mouse events on the tooltip
+                  zIndex: 10,
+                }}
+              >
+                {range}km
+              </div>
+            )}
+          </div>
+          <div className="flex-col rounded-3xl sm:p-1 lg:p-3 dark:bg-[#161717]">
+            <input
+              type="number"
+              value={count}
+              onChange={handleCountChange}
+              className="flex rounded-md w-full sm:h-[2rem] lg:h-[3rem] dark:bg-gray-700"
+            />
+            <input
+              value={query}
+              onChange={handleSearchChange}
+              className="rounded-md w-full mt-5 sm:h-[2rem] lg:h-[3rem] dark:bg-gray-700"
+              type="text"
+              placeholder="Search here..."
+            />
+            <div className="flex flex-row justify-between mt-5">
+              <button
+                onClick={handleSearch}
+                className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2"
+                type="button"
+              >
+                Search
+              </button>
+              <button
+                onClick={handleSave}
+                className="text-purple-700 hover:text-white border border-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-xs px-5 py-2.5 text-center mb-2 dark:border-purple-400 dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-500 dark:focus:ring-purple-900"
+                type="button"
+              >
+                Save Results
+              </button>
             </div>
+          </div>
+        </div>
+        <div className="relative flex-1 w-2/3 ml-5 rounded-lg bg-gray-200 border border-indigo-600 mb-2 dark:bg-gray-700 sm:overflow-x-scroll lg:overflow-x-auto">
+          {loading ? (
+            <div className="absolute left-1/2 top-1/2">
+              <SearchLoader />
+            </div>
+          ) : (
+            <TabComponent
+              data={result}
+              exportResult={exportResult}
+              favorite={favorite}
+              addSheet={handleAddSheetButton}
+            />
           )}
         </div>
-        <div className="flex-col my-5 p-5 rounded-3xl search-limits">
-          <input
-            type="number"
-            value={count}
-            onChange={handleCountChange}
-            className="flex rounded-md w-full"
-          />
-          <input
-            value={query}
-            onChange={handleSearchChange}
-            className="rounded-md w-full search mt-5"
-            type="text"
-            placeholder="Search here..."
-          />
-          <div className="flex flex-row justify-between mt-5">
-            <button
-              onClick={handleSearch}
-              className="flex search-button p-3"
-              type="button"
-            >
-              Search
-            </button>
-            <button
-              onClick={handleSave}
-              className="flex save-button p-3"
-              type="button"
-            >
-              Save Results
-            </button>
-          </div>
-        </div>
       </div>
-      <div className="relative flex-1 w-2/3 ml-5 search-result">
-        {loading ? (
-          <div className="absolute left-1/2 top-1/2">
-            <SearchLoader />
-          </div>
-        ) : (
-          <TabComponent
-            data={result}
-            exportResult={exportResult}
-            favorite={favorite}
-            addSheet={handleAddSheetButton}
-          />
-        )}
-      </div>
-    </div>
+    </>
   );
 }
 
