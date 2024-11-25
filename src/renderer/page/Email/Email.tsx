@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 import EmailTable from '../../component/EmailTable';
 import binSvg from '../../../../assets/images/email/bin.svg';
 import pencilSvg from '../../../../assets/images/email/pencil.svg';
-import './style.css';
 
 import OpenAI from 'openai';
+import Header from '../../component/Header';
 const { Configuration, OpenAIApi } = require('openai');
 const openai = new OpenAI({
   apiKey: "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", // Replace with your OpenAI API key
@@ -65,100 +65,103 @@ function Email({ sendEmail, emails }: EmailProps) {
   };
 
   return (
-    <div className="rounded-3xl pb-10 email-bg mx-10">
-      <div className="py-10 px-8 flex justify-between">
-        <h2 className="flex">Inbox</h2>
-        <div className="flex">
-          <button
-            className="flex flex-row items-center mr-5 h-10 button-delete"
-            type="button"
-          >
-            <img className="mr-5" src={binSvg} alt="delete" />
-            <span className="text-md">Delete</span>
-          </button>
-          <button
-            className="flex flex-row items-center ml-5 h-10 button-compose"
-            onClick={() => {
-              setIsWriting(!isWriting);
-            }}
-            type="button"
-          >
-            <img className="mr-5" src={pencilSvg} alt="compose" />
-            <span className="text-black">Compose</span>
-          </button>
+    <div>
+      <Header title={'Message Inbox'} />
+      <div className="rounded-xl pb-10 bg-gray-200 dark:bg-gray-900 mx-3 lg:mx-10">
+        <div className="sm:py-3 lg:py-10 px-8 flex justify-between">
+          <h2 className="flex text-xl font-bold">Inbox</h2>
+          <div className="flex">
+            <button
+              className="flex flex-row items-center bg-[#ff6767] focus:outline-none text-white bg-[#ff6767] hover:bg-red-600 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+              type="button"
+            >
+              <img className="mr-5" src={binSvg} alt="delete" />
+              <span className="text-md">Delete</span>
+            </button>
+            <button
+              className="flex flex-row items-center focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-3 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"
+              onClick={() => {
+                setIsWriting(!isWriting);
+              }}
+              type="button"
+            >
+              <img className="mr-5" src={pencilSvg} alt="compose" />
+              <span className="text-black">Compose</span>
+            </button>
+          </div>
         </div>
-      </div>
-      <EmailTable data={emails} />
+        <EmailTable data={emails} />
 
-      <div
-        className="relative z-10"
-        aria-labelledby="modal-title"
-        role="dialog"
-        aria-modal="true"
-      >
-        {/* <div
-          className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
-          aria-hidden="true"
-        /> */}
         <div
-          className="fixed inset-0 z-10 w-screen overflow-y-auto"
-          style={!isWriting ? { display: 'none' } : {}}
+          className="relative z-10"
+          aria-labelledby="modal-title"
+          role="dialog"
+          aria-modal="true"
         >
-          <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-            <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-              <div className="email-header px-3 py-3">New Message</div>
-              <div className="bg-black px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                <input
-                  className="w-full bg-black border-b-2 border-gray-600 py-1 placeholder-gray-500 outline-none focus:border-b-2 focus:border-gray-600"
-                  type="text"
-                  value={recipient}
-                  onChange={(e) => {
-                    setRecipient(e.target.value);
-                  }}
-                  placeholder="Recipients"
-                />
-                <input
-                  className="w-full bg-black border-b-2 border-gray-600 py-1 placeholder-gray-500 outline-none focus:border-b-2 focus:border-gray-600 my-2"
-                  type="text"
-                  value={subject}
-                  onChange={(e) => {
-                    setSubject(e.target.value);
-                  }}
-                  placeholder="Subject"
-                />
-                <textarea
-                  className="w-full h-96 text-white bg-black border-2 p-2 border-gray-600 placeholder-gray-500 outline-none"
-                  value={message}
-                  onChange={(e) => {
-                    setMessage(e.target.value);
-                  }}
-                  placeholder="Body Text"
-                />
-              </div>
-              <div className="bg-black px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                <button
-                  type="button"
-                  onClick={handleSendBtn}
-                  className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto"
-                >
-                  Send
-                </button>
-                <button
-                  type="button"
-                  onClick={handleGpt}
-                  className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto"
-                >
-                  GPT Generate
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setIsWriting(!isWriting);
-                  }}
-                  className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                >
-                  Cancel
-                </button>
+          {/* <div
+            className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+            aria-hidden="true"
+          /> */}
+          <div
+            className="fixed inset-0 z-10 w-screen overflow-y-auto"
+            style={!isWriting ? { display: 'none' } : {}}
+          >
+            <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+              <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                <div className="bg-[#424242] px-3 py-3">New Message</div>
+                <div className="bg-black px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                  <input
+                    className="w-full bg-black border-b-2 border-gray-600 py-1 placeholder-gray-500 outline-none focus:border-b-2 focus:border-gray-600"
+                    type="text"
+                    value={recipient}
+                    onChange={(e) => {
+                      setRecipient(e.target.value);
+                    }}
+                    placeholder="Recipients"
+                  />
+                  <input
+                    className="w-full bg-black border-b-2 border-gray-600 py-1 placeholder-gray-500 outline-none focus:border-b-2 focus:border-gray-600 my-2"
+                    type="text"
+                    value={subject}
+                    onChange={(e) => {
+                      setSubject(e.target.value);
+                    }}
+                    placeholder="Subject"
+                  />
+                  <textarea
+                    className="w-full h-96 text-white bg-black border-2 p-2 border-gray-600 placeholder-gray-500 outline-none"
+                    value={message}
+                    onChange={(e) => {
+                      setMessage(e.target.value);
+                    }}
+                    placeholder="Body Text"
+                  />
+                </div>
+                <div className="bg-black px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                  <button
+                    type="button"
+                    onClick={handleSendBtn}
+                    className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto"
+                  >
+                    Send
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleGpt}
+                    className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto"
+                  >
+                    GPT Generate
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsWriting(!isWriting);
+                    }}
+                    className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                  >
+                    Cancel
+                  </button>
+                </div>
               </div>
             </div>
           </div>
