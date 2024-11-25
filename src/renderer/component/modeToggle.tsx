@@ -8,9 +8,9 @@ const ModeToggle: React.FC = () => {
     useEffect(() => {
         const savedMode = localStorage.getItem('darkMode') === 'true';
         setIsDarkMode(savedMode);
-        if (savedMode) {
-            document.documentElement.classList.toggle('dark');
-        }
+        // if (savedMode) {
+        //     document.documentElement.classList.toggle('dark');
+        // }
     }, []);
 
     const toggleDarkMode = () => {
