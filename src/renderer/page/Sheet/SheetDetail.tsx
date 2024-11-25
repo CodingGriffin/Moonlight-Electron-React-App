@@ -1,7 +1,6 @@
 import ResultTable from '../../component/ResultTable';
 // import filterSvg from '../../../../assets/images/button_icon/filter.svg';
 // import downloadSvg from '../../../../assets/images/button_icon/download.svg';
-import './style.css';
 
 // const XLSX = require('xlsx');
 
@@ -29,7 +28,7 @@ function SheetDetail({ result, favorite }: HistoryProps) {
   // };
 
   return (
-    <div className="rounded-3xl pb-10 history-bg mx-10">
+    <div className="rounded-3xl pb-10 my-10">
       {/* <div className="py-10 px-8 flex justify-between">
         <h2 className="flex">Search Results</h2>
         <div className="flex">

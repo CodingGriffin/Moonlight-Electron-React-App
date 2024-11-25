@@ -1,6 +1,6 @@
 import { useDragAndDrop } from '@formkit/drag-and-drop/react';
 import SheetComponent from '../../component/Sheet';
-import './style.css';
+import Header from '../../component/Header';
 
 interface SheetProps {
   result: any; // Adjust according to your data structure
@@ -17,18 +17,21 @@ function Sheet({ result }: SheetProps) {
   ]);
 
   return (
-    <div className="flex flex-col rounded-3xl mx-8 p-10 sheet-bg">
-      {/* <ul ref={parent}>
-        {tapes.map((tape) => (
-          <li className="cassette" data-label={tape} key={tape}>
-            {tape}
-          </li>
-        ))}
-      </ul> */}
-      <div className="flex flex-row justify-between my-5">
-        {result?.map((item: any) => {
-          return <SheetComponent sheet={item} />;
-        })}
+    <div>
+      <Header title={"Recent Sheets"}/>
+      <div className="flex flex-col gap-3 rounded-3xl lg:mx-8 p-10">
+        {/* <ul ref={parent}>
+          {tapes.map((tape) => (
+            <li className="cassette" data-label={tape} key={tape}>
+              {tape}
+            </li>
+          ))}
+        </ul> */}
+        <div className="flex flex-row">
+          {result?.map((item: any) => {
+            return <SheetComponent sheet={item} />;
+          })}
+        </div>
       </div>
     </div>
   );
