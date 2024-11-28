@@ -11,7 +11,7 @@ export default function DropdownExportButton({ downloadResult, handleExportButto
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <MenuButton className="inline-flex items-center text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 sm:text-xs px-2 me-2 lg: text-sm px-5 py-2.5 mb-2 ">
+        <MenuButton className="inline-flex items-center text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 sm:text-md px-2 me-2 lg: px-5 py-2.5 mb-2 ">
           <svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg" className='mr-1'>
             <path d="M7 1.25V12.75M7 12.75L2 8.25M7 12.75L11.5 8.25M1 14.75H13" stroke="#ffffff" stroke-linecap="round"/>
           </svg>

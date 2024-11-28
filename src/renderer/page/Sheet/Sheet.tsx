@@ -1,6 +1,7 @@
 import { useDragAndDrop } from '@formkit/drag-and-drop/react';
 import SheetComponent from '../../component/Sheet';
 import Header from '../../component/Header';
+import NewSheet from '../../component/newSheet';
 
 interface SheetProps {
   result: any; // Adjust according to your data structure
@@ -27,9 +28,10 @@ function Sheet({ result }: SheetProps) {
             </li>
           ))}
         </ul> */}
-        <div className="flex flex-row">
+        <div className="grid sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {result?.map((item: any) => {
-            return <SheetComponent sheet={item} />;
+            // return <SheetComponent sheet={item} />;
+            return <NewSheet sheet={item} />;
           })}
         </div>
       </div>
