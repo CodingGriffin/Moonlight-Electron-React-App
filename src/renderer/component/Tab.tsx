@@ -3,6 +3,7 @@ import ResultTable from './ResultTable';
 import DropdownExportButton from './DropdownExportButton';
 
 import filterSvg from '../../../assets/images/button_icon/filter.svg';
+import FilterBtn from './filterBtn';
 
 const XLSX = require('xlsx');
 
@@ -119,7 +120,7 @@ function TabComponent({
       <div className="flex justify-between sm:py-3 px-2 lg:py-10 px-8">
         <h2 className="flex font-bold pl-2">Search Results</h2>
         <div className="flex">
-          <button
+          {/* <button
             className="flex flex-row items-center border border-gray-500 hover:bg-gray-500 hover:text-white font-medium rounded-lg dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 sm:text-xs px-2 py-1.5 lg:text-sm px-5 py-2.5 mb-2 "
             type="button"
           >
@@ -128,14 +129,18 @@ function TabComponent({
             </svg>
 
             <span className="text-md">Filter</span>
-          </button>
-          <button
-            className="flex flex-row items-center bg-purple-700 text-white hover:bg-purple-800 font-medium rounded-lg dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 sm:text-xs px-2 py-1.5 mx-2 lg:text-sm px-5 py-2.5 mb-2"
-            type="button"
-            onClick={handleAddSheetButton}
-          >
-            <span>AddSheet</span>
-          </button>
+          </button> */}
+          <FilterBtn />
+          <div>
+            <button
+              className="flex flex-row items-center py-2 bg-purple-700 text-white hover:bg-purple-800 font-medium rounded-lg dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 sm:text-sm px-2 mx-2 lg:text-sm px-5 mb-2"
+              type="button"
+              onClick={handleAddSheetButton}
+            >
+              <span>AddSheet</span>
+            </button>
+
+          </div>
           <DropdownExportButton
             downloadResult={downloadResult}
             handleExportButton={handleExportButton}
