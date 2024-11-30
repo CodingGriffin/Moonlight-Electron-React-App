@@ -24,7 +24,7 @@ function SideBar() {
   const location = useLocation();
 
   return (
-    <div className="flex flex-col justify-between bg-[#161717] h-full sm:w-10 lg:w-20 transition-all duration-300 pb-3">
+    <div className="flex flex-col justify-between dark:bg-[#161717] h-full sm:w-10 lg:w-20 transition-all duration-300 pb-3">
       <div className='lg:gap-3 xl:gap-5 flex flex-col'>
         <div
           className="flex justify-center py-8"
@@ -36,14 +36,14 @@ function SideBar() {
           <img src={logo} alt="logo" className='w-[60%]'/>
         </div>
         <div
-          className="flex justify-center rounded-l-lg sm:py-2 ml-1 lg:ml-3"
+          className={`flex justify-center rounded-l-lg sm:py-2 ml-1 lg:ml-3 ${location.pathname === '/after' ? 'bg-gray-600 dark:bg-black' : ''}`}
           onClick={() => navigate('/after')}
           onKeyDown={() => {}}
           role="button"
           tabIndex={0}
-          style={
-            location.pathname === '/after' ? { backgroundColor: 'black' } : {}
-          }
+          // style={
+          //   location.pathname === '/after' ? { backgroundColor: 'black' } : {}
+          // }
         >
           <img
             className="sm:mr-1 lg:mr-4"
@@ -52,16 +52,11 @@ function SideBar() {
           />
         </div>
         <div
-          className="flex justify-center rounded-l-lg sm:py-2 ml-1 lg:ml-3"
+          className={`flex justify-center rounded-l-lg sm:py-2 ml-1 lg:ml-3 ${location.pathname === '/after/search' ? 'bg-gray-600 dark:bg-black' : ''}`}
           onClick={() => navigate('/after/search')}
           onKeyDown={() => {}}
           role="button"
           tabIndex={0}
-          style={
-            location.pathname === '/after/search'
-              ? { backgroundColor: 'black' }
-              : {}
-          }
         >
           <img
             className="sm:mr-1 lg:mr-4"
@@ -72,16 +67,11 @@ function SideBar() {
           />
         </div>
         <div
-          className="flex justify-center rounded-l-lg sm:py-2 ml-1 lg:ml-3"
+          className={`flex justify-center rounded-l-lg sm:py-2 ml-1 lg:ml-3 ${location.pathname === '/after/sheet' ? 'bg-gray-600 dark:bg-black' : ''}`}
           onClick={() => navigate('/after/sheet')}
           onKeyDown={() => {}}
           role="button"
           tabIndex={0}
-          style={
-            location.pathname === '/after/sheet'
-              ? { backgroundColor: 'black' }
-              : {}
-          }
         >
           <img
             className="sm:mr-1 lg:mr-4"
@@ -90,16 +80,11 @@ function SideBar() {
           />
         </div>
         <div
-          className="flex justify-center rounded-l-lg sm:py-2 ml-1 lg:ml-3"
+          className={`flex justify-center rounded-l-lg sm:py-2 ml-1 lg:ml-3 ${location.pathname === '/after/history' ? 'bg-gray-600 dark:bg-black' : ''}`}
           onClick={() => navigate('/after/history')}
           onKeyDown={() => {}}
           role="button"
           tabIndex={0}
-          style={
-            location.pathname === '/after/history'
-              ? { backgroundColor: 'black' }
-              : {}
-          }
         >
           <img
             className="sm:mr-1 lg:mr-4"
@@ -110,16 +95,11 @@ function SideBar() {
           />
         </div>
         <div
-          className="flex justify-center rounded-l-lg sm:py-2 ml-1 lg:ml-3"
+          className={`flex justify-center rounded-l-lg sm:py-2 ml-1 lg:ml-3 ${location.pathname === '/after/favorite' ? 'bg-gray-600 dark:bg-black' : ''}`}
           onClick={() => navigate('/after/favorite')}
           onKeyDown={() => {}}
           role="button"
           tabIndex={0}
-          style={
-            location.pathname === '/after/favorite'
-              ? { backgroundColor: 'black' }
-              : {}
-          }
         >
           <img
             className="sm:mr-1 lg:mr-4"
@@ -132,16 +112,11 @@ function SideBar() {
           />
         </div>
         <div
-          className="flex justify-center rounded-l-lg sm:py-2 ml-1 lg:ml-3"
+          className={`flex justify-center rounded-l-lg sm:py-2 ml-1 lg:ml-3 ${location.pathname === '/after/email' ? 'bg-gray-600 dark:bg-black' : ''}`}
           onClick={() => navigate('/after/email')}
           onKeyDown={() => {}}
           role="button"
           tabIndex={0}
-          style={
-            location.pathname === '/after/email'
-              ? { backgroundColor: 'black' }
-              : {}
-          }
         >
           <img
             className="sm:mr-1 lg:mr-4"
@@ -151,9 +126,9 @@ function SideBar() {
         </div>
       </div>
 
-      <div className="bg-[#161717]">
+      <div className="dark:bg-[#161717]">
         <div
-          className="flex justify-center rounded-l-lg sm:py-2 ml-1 lg:ml-3"
+          className={`flex justify-center rounded-l-lg sm:py-2 ml-1 lg:ml-3 ${location.pathname === '/after/profile' ? 'bg-gray-600 dark:bg-black' : ''}`}
           onClick={() => navigate('/after/profile')}
           onKeyDown={() => {}}
           role="button"

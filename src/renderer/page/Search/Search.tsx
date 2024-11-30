@@ -173,6 +173,12 @@ function Search({
     addSheet(result, query);
   };
 
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      setQuery(event.target.value);
+    }
+}
+
   return (
     <>
       <Header title={'Business Search'} />
@@ -235,6 +241,7 @@ function Search({
             <input
               value={query}
               onChange={handleSearchChange}
+              onKeyDown={handleKeyPress}
               className="rounded-md w-full mt-5 sm:h-[2rem] lg:h-[3rem] dark:bg-gray-700"
               type="text"
               placeholder="Search here..."

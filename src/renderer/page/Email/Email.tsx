@@ -108,10 +108,10 @@ function Email({ sendEmail, emails }: EmailProps) {
           >
             <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
               <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                <div className="bg-[#424242] px-3 py-3">New Message</div>
-                <div className="bg-black px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                <div className="bg-[#424242] px-3 py-3 text-white">New Message</div>
+                <div className="px-4 pb-4 pt-5 sm:p-6 sm:pb-4 dark:bg-gray-900 ">
                   <input
-                    className="w-full bg-black border-b-2 border-gray-600 py-1 placeholder-gray-500 outline-none focus:border-b-2 focus:border-gray-600"
+                    className="block py-1.5 ps-6 pe-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-gray-600 peer"
                     type="text"
                     value={recipient}
                     onChange={(e) => {
@@ -120,7 +120,7 @@ function Email({ sendEmail, emails }: EmailProps) {
                     placeholder="Recipients"
                   />
                   <input
-                    className="w-full bg-black border-b-2 border-gray-600 py-1 placeholder-gray-500 outline-none focus:border-b-2 focus:border-gray-600 my-2"
+                    className="block py-1.5 ps-6 pe-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-gray-600 peer"
                     type="text"
                     value={subject}
                     onChange={(e) => {
@@ -129,7 +129,7 @@ function Email({ sendEmail, emails }: EmailProps) {
                     placeholder="Subject"
                   />
                   <textarea
-                    className="w-full h-96 text-white bg-black border-2 p-2 border-gray-600 placeholder-gray-500 outline-none"
+                    className="block mt-5 py-1.5 ps-6 pe-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-gray-600 peer sm:min-h-[15rem] lg:min-h-[25rem]"
                     value={message}
                     onChange={(e) => {
                       setMessage(e.target.value);
@@ -137,7 +137,7 @@ function Email({ sendEmail, emails }: EmailProps) {
                     placeholder="Body Text"
                   />
                 </div>
-                <div className="bg-black px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                <div className="bg-[#424242] px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                   <button
                     type="button"
                     onClick={handleSendBtn}

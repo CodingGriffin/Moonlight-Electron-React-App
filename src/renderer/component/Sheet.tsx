@@ -11,6 +11,7 @@ function SheetComponent({ sheet }: SheetComponentProps) {
   const goToDetail = (id: any) => {
     navigate(`/after/sheet/${id}`);
   };
+  console.log("sheet====>", sheet);
 
   return (
     <div className="bg-white text-black border border-gray-400 sm:m-2 w-[10rem] h-[12rem] xl:m-3 xl:w-[13rem] xl:h-[18rem] ">
