@@ -85,7 +85,7 @@ const createWindow = async () => {
     minWidth:800,
     minHeight:600,
     autoHideMenuBar: true,
-    icon: getAssetPath('logo.png'),
+    icon: getAssetPath('icon.png'),
     webPreferences: {
       preload: app.isPackaged
         ? path.join(__dirname, 'preload.js')
