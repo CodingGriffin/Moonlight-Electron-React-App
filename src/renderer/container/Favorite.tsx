@@ -54,7 +54,7 @@ function FavoriteContainer() {
     // You can perform side effects here if needed
   }, [results]);
 
-  return <Favorite result={results} favorite={favorite} />;
+  return <Favorite data={results} favorite={favorite} />;
 }
 
 export default FavoriteContainer;
