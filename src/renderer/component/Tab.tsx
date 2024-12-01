@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ResultTable from './ResultTable';
 import DropdownExportButton from './DropdownExportButton';
-
-import filterSvg from '../../../assets/images/button_icon/filter.svg';
 import FilterBtn from './filterBtn';
 
 const XLSX = require('xlsx');

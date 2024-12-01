@@ -69,7 +69,7 @@ function HistoryContainer() {
   }, [results]);
 
   return (
-    <History result={results} favorite={favorite} exportResult={exportResult} />
+    <History data={results} favorite={favorite} exportResult={exportResult} />
   );
 }
 
