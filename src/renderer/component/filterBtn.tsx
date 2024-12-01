@@ -1,7 +1,19 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { useState } from 'react';
 
-function FilterBtn() {
+interface FilterComponentProps {
+  filterWebsite: () => void;
+  filterEmail: () => void;
+  filterPhone: () => void;
+  filterAddress: () => void;
+}
+
+function FilterBtn({
+  filterWebsite,
+  filterEmail,
+  filterAddress,
+  filterPhone,
+}: FilterComponentProps) {
   const [address, setAddress] = useState(false);
   const [phone, setPhone] = useState(false);
   const [email, setEmail] = useState(false);
@@ -31,11 +43,11 @@ function FilterBtn() {
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
               d="M19 9l-7 7-7-7"
-            ></path>
+            />
           </svg>
         </MenuButton>
       </div>
@@ -52,7 +64,10 @@ function FilterBtn() {
                 type="checkbox"
                 value=""
                 checked={address}
-                onClick={()=>setAddress(!address)}
+                onClick={async () => {
+                  await setAddress(!address);
+                  await filterAddress();
+                }}
                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
               />
               <label
@@ -70,7 +85,10 @@ function FilterBtn() {
                 type="checkbox"
                 value=""
                 checked={phone}
-                onClick={()=>setPhone(!phone)}
+                onClick={async () => {
+                  await setPhone(!phone);
+                  await filterPhone();
+                }}
                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
               />
               <label
@@ -88,7 +106,10 @@ function FilterBtn() {
                 type="checkbox"
                 value=""
                 checked={email}
-                onClick={()=>setEmail(!email)}
+                onClick={async () => {
+                  await setEmail(!email);
+                  await filterEmail();
+                }}
                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
               />
               <label
@@ -106,7 +127,10 @@ function FilterBtn() {
                 type="checkbox"
                 value=""
                 checked={website}
-                onClick={()=>setWebsite(!website)}
+                onClick={async () => {
+                  await setWebsite(!website);
+                  await filterWebsite();
+                }}
                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
               />
               <label

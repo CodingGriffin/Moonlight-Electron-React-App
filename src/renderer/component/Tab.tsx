@@ -36,8 +36,13 @@ function TabComponent({
   favorite,
   addSheet,
 }: TabComponentProps) {
+  const [result, setResult] = useState<Result[]>([]);
   const [tabs, setTabs] = useState<TabData[]>([]);
   const [activeTabIndex, setActiveTabIndex] = useState(0);
+  const [address, setAddress] = useState(false);
+  const [phone, setPhone] = useState(false);
+  const [email, setEmail] = useState(false);
+  const [website, setWebsite] = useState(false);
 
   const downloadResult = () => {
     const wb = XLSX.utils.book_new();
@@ -52,7 +57,109 @@ function TabComponent({
     XLSX.writeFile(wb, 'data.xlsx');
   };
 
+  const filterAddress = async () => {
+    await setAddress(!address);
+    if (email) {
+      data = data.filter((item) => {
+        return item.email;
+      });
+    }
+    if (website) {
+      data = data.filter((item) => {
+        return item.website !== 'Website not available';
+      });
+    }
+    if (!address) {
+      data = data.filter((item) => {
+        return item.formatted_address;
+      });
+    }
+    if (phone) {
+      data = data.filter((item) => {
+        return item.phoneNumber !== 'Phone number not available';
+      });
+    }
+    await setResult(data);
+  };
+
+  const filterPhone = async () => {
+    await setPhone(!phone);
+    if (email) {
+      data = data.filter((item) => {
+        return item.email;
+      });
+    }
+    if (website) {
+      data = data.filter((item) => {
+        return item.website !== 'Website not available';
+      });
+    }
+    if (address) {
+      data = data.filter((item) => {
+        return item.formatted_address;
+      });
+    }
+    if (!phone) {
+      data = data.filter((item) => {
+        return item.phoneNumber !== 'Phone number not available';
+      });
+    }
+    await setResult(data);
+  };
+
+  const filterEmail = async () => {
+    await setEmail(!email);
+    if (!email) {
+      data = data.filter((item) => {
+        return item.email;
+      });
+    }
+    if (website) {
+      data = data.filter((item) => {
+        return item.website !== 'Website not available';
+      });
+    }
+    if (address) {
+      data = data.filter((item) => {
+        return item.formatted_address;
+      });
+    }
+    if (phone) {
+      data = data.filter((item) => {
+        return item.phoneNumber !== 'Phone number not available';
+      });
+    }
+    await setResult(data);
+  };
+
+  const filterWebsite = async () => {
+    await setWebsite(!website);
+    if (!website) {
+      data = data.filter((item) => {
+        return item.website !== 'Website not available';
+      });
+    }
+    if (email) {
+      data = data.filter((item) => {
+        return item.email;
+      });
+    }
+    if (address) {
+      data = data.filter((item) => {
+        return item.formatted_address;
+      });
+    }
+    if (phone) {
+      data = data.filter((item) => {
+        return item.phoneNumber !== 'Phone number not available';
+      });
+    }
+    await setResult(data);
+    console.log("this is the filtered data by website", data, website);
+  };
+
   useEffect(() => {
+    setResult(data);
     const newTabLabel = 'New Tab';
 
     setTabs((prevTabs) => {
@@ -68,7 +175,7 @@ function TabComponent({
       return updatedTabs;
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+  }, [data, website]);
 
   const handleTabChange = (index: React.SetStateAction<number>) => {
     setActiveTabIndex(index);
@@ -130,7 +237,12 @@ function TabComponent({
 
             <span className="text-md">Filter</span>
           </button> */}
-          <FilterBtn />
+          <FilterBtn
+            filterWebsite={filterWebsite}
+            filterEmail={filterEmail}
+            filterAddress={filterAddress}
+            filterPhone={filterPhone}
+          />
           <div>
             <button
               className="flex flex-row items-center py-2 bg-purple-700 text-white hover:bg-purple-800 font-medium rounded-lg dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 sm:text-sm px-2 mx-2 lg:text-sm px-5 mb-2"
@@ -139,7 +251,6 @@ function TabComponent({
             >
               <span>AddSheet</span>
             </button>
-
           </div>
           <DropdownExportButton
             downloadResult={downloadResult}
@@ -147,7 +258,7 @@ function TabComponent({
           />
         </div>
       </div>
-      <ResultTable data={data} favorite={favorite} />
+      <ResultTable data={result} favorite={favorite}  />
     </div>
   );
 }
