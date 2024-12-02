@@ -54,7 +54,6 @@ function ResultTable({ data, favorite }: TabComponentProps) {
                 GoogleReview
               </th>
               <th scope="col" className="pl-2">
-                <FavoriteBlack />
               </th>
               {/* <th scope="col" className="w-2/12 pr-5">
                 SocialLinks
