@@ -1,41 +1,67 @@
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface SheetComponentProps {
-    sheet: any;
+  sheet: any;
+  onDrop: (droppedSheet: any) => void;
 }
-const NewSheet = ({sheet}:SheetComponentProps) => {
-    const navigate = useNavigate();
-    const goToDetail = (id: any) => {
-        navigate(`/after/sheet/${id}`);
-    };
-    
-    const date = new Date(sheet.createdAt);
+function NewSheet({ sheet, onDrop }: SheetComponentProps) {
+  const navigate = useNavigate();
+  const goToDetail = (id: any) => {
+    navigate(`/after/sheet/${id}`);
+  };
 
-    // Options for formatting
-    const options = { year: 'numeric', month: 'long', day: 'numeric' } as const;
-    const formattedDate = date.toLocaleDateString('en-US', options);
-    return (
-        <StyledWrapper>
-        <div className="card"
-            onClick={() => {
-                goToDetail(sheet._id);
-            }}
-            onKeyDown={() => {}}
-            role="button"
-            tabIndex={0}
-        >
-            <div className="blob" />
-            <span className="img" />
-            <div className='text-2xl font-bold'>
-                {sheet.name}
-            </div>
-            <p>
-                {formattedDate}
-            </p>
-        </div>
-        </StyledWrapper>
-    );
+  const handleDragStart = (e: React.DragEvent) => {
+    e.dataTransfer.setData('application/json', JSON.stringify(sheet));
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.currentTarget.classList.add('drag-over');
+  };
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.currentTarget.classList.remove('drag-over');
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.currentTarget.classList.remove('drag-over');
+    const droppedSheet = JSON.parse(
+      e.dataTransfer.getData('application/json'),
+    ) as any;
+    onDrop(droppedSheet);
+  };
+
+  const date = new Date(sheet.createdAt);
+
+  // Options for formatting
+  const options = { year: 'numeric', month: 'long', day: 'numeric' } as const;
+  const formattedDate = date.toLocaleDateString('en-US', options);
+  return (
+    <StyledWrapper>
+      <div
+        className="card"
+        onClick={() => {
+          goToDetail(sheet._id);
+        }}
+        onKeyDown={() => {}}
+        role="button"
+        tabIndex={0}
+        draggable
+        onDragStart={handleDragStart}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
+      >
+        <div className="blob" />
+        <span className="img" />
+        <div className="text-2xl font-bold">{sheet.name}</div>
+        <p>{formattedDate}</p>
+      </div>
+    </StyledWrapper>
+  );
 }
 
 const StyledWrapper = styled.div`
@@ -47,8 +73,8 @@ const StyledWrapper = styled.div`
     text-align: center;
     transition: all 0.5s;
     position: relative;
-    color:black;
-    margin:10px;
+    color: black;
+    margin: 10px;
   }
 
   .card:hover {
@@ -122,6 +148,7 @@ const StyledWrapper = styled.div`
     left: 30px;
     opacity: 1;
     transition: all 0.1s;
-  }`;
+  }
+`;
 
 export default NewSheet;

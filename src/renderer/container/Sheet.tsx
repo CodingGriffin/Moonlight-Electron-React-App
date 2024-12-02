@@ -18,9 +18,37 @@ function SheetContainer() {
           },
         },
       );
+      const data = response.data.map((item: any) => {
+        item.results = null;
+        return item;
+      });
       console.log(response.data);
+      await setResults(data);
+    } catch (error) {
+      console.error('Error Sending Result:', error);
+    }
+  };
 
-      await setResults(response.data);
+  const combineSheets = async (targetId: string, droppedId: string) => {
+    const token = localStorage.getItem('access_token');
+
+    try {
+      const response = await axios.post(
+        'http://192.168.145.241:5000/api/sheet/combine',
+        { targetId, droppedId },
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(token || '')}`,
+            'Content-Type': 'application/json', // Optional, depending on your API
+          },
+        },
+      );
+      const data = response.data.map((item: any) => {
+        item.results = null;
+        return item;
+      });
+      console.log(response.data);
+      await setResults(data);
     } catch (error) {
       console.error('Error Sending Result:', error);
     }
@@ -34,7 +62,7 @@ function SheetContainer() {
     // You can perform side effects here if needed
   }, [results]);
 
-  return <Sheet result={results} />;
+  return <Sheet result={results} combineSheets={combineSheets} />;
 }
 
 export default SheetContainer;

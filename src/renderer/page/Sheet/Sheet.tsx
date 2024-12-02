@@ -1,38 +1,30 @@
-import { useDragAndDrop } from '@formkit/drag-and-drop/react';
-import SheetComponent from '../../component/Sheet';
+import { useEffect, useState } from 'react';
 import Header from '../../component/Header';
-import NewSheet from '../../component/newSheet';
+import SheetGrid from '../../component/SheetGrid';
 
 interface SheetProps {
   result: any; // Adjust according to your data structure
+  combineSheets: (targetId: string, droppedId: string) => void;
 }
 
-function Sheet({ result }: SheetProps) {
-  const [parent, tapes] = useDragAndDrop<HTMLUListElement, string>([
-    'Depeche Mode',
-    'Duran Duran',
-    'Pet Shop Boys',
-    'Kraftwerk',
-    'Tears for Fears',
-    'Spandau Ballet',
-  ]);
+function Sheet({ result, combineSheets }: SheetProps) {
+  const [data, setData] = useState([]);
+  const handleSheetsUpdate = (targetId: string, droppedId: string) => {
+    combineSheets(targetId, droppedId);
+    // Here you can handle the updated sheets, e.g., save to backend
+  };
+
+  useEffect(() => {
+    setData(result);
+    // You can perform side effects here if needed
+  }, [result]);
 
   return (
     <div>
-      <Header title={"Recent Sheets"}/>
+      <Header title="Recent Sheets" />
       <div className="flex flex-col gap-3 rounded-3xl lg:mx-8 p-10">
-        {/* <ul ref={parent}>
-          {tapes.map((tape) => (
-            <li className="cassette" data-label={tape} key={tape}>
-              {tape}
-            </li>
-          ))}
-        </ul> */}
-        <div className="grid sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-          {result?.map((item: any) => {
-            // return <SheetComponent sheet={item} />;
-            return <NewSheet sheet={item} />;
-          })}
+        <div className="min-h-screen bg-gray-100 p-8">
+          <SheetGrid initialSheets={data} onSheetsUpdate={handleSheetsUpdate} />
         </div>
       </div>
     </div>
