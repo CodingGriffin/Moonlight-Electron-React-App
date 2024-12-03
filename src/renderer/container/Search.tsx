@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Search from '../page/Search/Search';
@@ -25,7 +26,10 @@ function SearchContainer() {
           },
         },
       );
-
+      localStorage.setItem(
+        'search-result',
+        JSON.stringify(response.data.scrapedData),
+      );
       setResult(response.data.scrapedData); // Adjust according to your API response structure
     } catch (error) {
       console.error('Error fetching search results:', error);
@@ -96,20 +100,40 @@ function SearchContainer() {
     const token = localStorage.getItem('access_token');
 
     try {
-      await axios.put(`http://192.168.145.241:5000/api/result/favorite?${id}`, {
-        headers: {
-          Authorization: `Bearer ${JSON.parse(token || '')}`,
-          'Content-Type': 'application/json', // Optional, depending on your API
-        },
-      });
+      if (id.name) {
+        await axios.put(
+          `http://192.168.145.241:5000/api/result/favorite/${'999999999999999999999999'}`,
+          { id },
+          {
+            headers: {
+              Authorization: `Bearer ${JSON.parse(token || '')}`,
+              'Content-Type': 'application/json', // Optional, depending on your API
+            },
+          },
+        );
+      } else {
+        await axios.put(
+          `http://192.168.145.241:5000/api/result/favorite/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${JSON.parse(token || '')}`,
+              'Content-Type': 'application/json', // Optional, depending on your API
+            },
+          },
+        );
+      }
     } catch (error) {
       console.error('Error Sending Email:', error);
     }
   };
 
   useEffect(() => {
+    const savedSearchResult = localStorage.getItem('search-result');
+    savedSearchResult
+      ? setResult(JSON.parse(savedSearchResult || ''))
+      : setResult([]);
     // You can perform side effects here if needed
-  }, [result]);
+  }, []);
 
   return (
     <Search

@@ -76,7 +76,7 @@ function ResultTable({ data, favorite }: TabComponentProps) {
                     <td className="sm:px-1 lg:px-2">{_item.email}</td>
                     <td className="sm:px-1 lg:px-2">{_item.website}</td>
                     <td className="sm:px-1 pr-1 lg:px-2 pr-5">{_item.rating}</td>
-                    <td className="sm:px-2 pr-1 lg:px-2 pr-5" onClick={() => {favorite(_item._id); _item.isFavorite = !_item.isFavorite}}>
+                    <td className="sm:px-2 pr-1 lg:px-2 pr-5" onClick={() => {favorite(_item._id ? _item._id : _item); _item.isFavorite = !_item.isFavorite}}>
                       {_item.isFavorite ? <UnFavoriteBlack /> : <FavoriteBlack />}
                     </td>
                     {/* <td className="px-2 pr-5">{_item.socialLinks}</td> */}
