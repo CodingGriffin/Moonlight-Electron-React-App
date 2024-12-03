@@ -75,7 +75,41 @@ function Search({
     }
   };
 
+  const selectedCountry = async (e: any) => {
+    console.log("this is the country name", e.target.value);
+    try {
+      const response = await fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(e.target.value)}&key=AIzaSyD8pk2ZnpR82LXx3IJUXFbaRnhZ27hR4ZY`,
+      );
+      const data = await response.json();
+
+      if (data.results.length > 0) {
+        const { lat, lng } = data.results[0].geometry.location;
+        setMarkerPosition({ lat, lng });
+        setCurrentLocation({ lat, lng });
+      }
+    } catch (error) {
+      console.log('Error fetching location. Please try again.');
+    }
+  };
+
   useEffect(() => {
+    fetch('https://restcountries.com/v3.1/all')
+      .then((response) => response.json())
+      // eslint-disable-next-line promise/always-return
+      .then((data: any) => {
+        const select = document.getElementById('country');
+
+        data.forEach(
+          (country: { cca2: string; name: { common: string | null } }) => {
+            const option = document.createElement('option');
+            option.value = country.name.common || ''; // ISO 3166-1 alpha-2 code
+            option.textContent = country.name.common; // Common name
+            select.appendChild(option);
+          },
+        );
+      })
+      .catch((error) => console.error('Error fetching country data:', error));
     // Get user's current location
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -177,7 +211,7 @@ function Search({
     if (event.key === 'Enter') {
       setQuery(event.target.value);
     }
-}
+  };
 
   return (
     <>
@@ -198,6 +232,15 @@ function Search({
             type="text"
             placeholder="location..."
           />
+          <select
+            id="country"
+            onChange={selectedCountry}
+            className="rounded-md w-full search ps-3 text-gray sm:mt-3 h-[2rem] lg:mt-5 lg:h-[3rem] dark:bg-gray-700"
+          >
+            <option className="w-full" value="">
+              --Please choose a country--
+            </option>
+          </select>
           <div className="relative w-full">
             <p className="font-semibold sm:mt-1 text-sm lg:mt-3">Range:</p>
             <input
