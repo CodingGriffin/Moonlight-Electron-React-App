@@ -67,9 +67,9 @@ function Email({ sendEmail, emails }: EmailProps) {
   return (
     <div>
       <Header title={'Message Inbox'} />
-      <div className="rounded-xl pb-10 bg-gray-200 dark:bg-gray-900 mx-3 lg:mx-10">
-        <div className="sm:py-3 lg:py-10 px-8 flex justify-between">
-          <h2 className="flex text-xl font-bold">Inbox</h2>
+      <div className="rounded-3xl pb-10 my-12 bg-white shadow-xl min-h-screen dark:bg-gray-700 mx-3 lg:mx-10">
+        <div className="shadow-md mb-6 rounded-t-3xl sm:py-3 lg:py-10 px-8 flex justify-between">
+          <h2 className="flex font-bold sm:text-xl pl-2 lg:pl-2 lg:text-2xl">Inbox</h2>
           <div className="flex">
             <button
               className="flex flex-row items-center bg-[#ff6767] focus:outline-none text-white bg-[#ff6767] hover:bg-red-600 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"

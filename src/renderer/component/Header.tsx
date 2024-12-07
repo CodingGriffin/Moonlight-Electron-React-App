@@ -13,7 +13,7 @@ function Header({title}:any) {
     setUser(savedUser);
   }, []);
   return (
-    <div className="w-full flex justify-between sm:p-2 lg:p-5">
+    <div className="w-full flex justify-between sm:p-2 bg-white dark:bg-gray-700 shadow-xl rounded-b-3xl lg:p-3">
       <div className="relative">
         <img
           className="search-icon absolute left-5 top-3"

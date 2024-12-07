@@ -23,7 +23,7 @@ function Sheet({ result, combineSheets }: SheetProps) {
     <div>
       <Header title="Recent Sheets" />
       <div className="flex flex-col gap-3 rounded-3xl lg:mx-8 p-10">
-        <div className="min-h-screen bg-gray-100 p-8">
+        <div className="min-h-screen bg-white dark:bg-gray-700 rounded-3xl shadow-xl p-8">
           <SheetGrid initialSheets={data} onSheetsUpdate={handleSheetsUpdate} />
         </div>
       </div>

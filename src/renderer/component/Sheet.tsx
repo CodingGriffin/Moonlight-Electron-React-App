@@ -14,7 +14,7 @@ function SheetComponent({ sheet }: SheetComponentProps) {
   console.log("sheet====>", sheet);
 
   return (
-    <div className="bg-white text-black border border-gray-400 sm:m-2 w-[10rem] h-[12rem] xl:m-3 xl:w-[13rem] xl:h-[18rem] ">
+    <div className="bg-white text-black border border-gray-400 rounde-3xl sm:m-2 w-[10rem] h-[12rem] xl:m-3 xl:w-[13rem] xl:h-[18rem] ">
       <div
         className="text-center sm:text-lg p-5 h-[7rem] xl:text-xl xl:p-10 xl:h-48"
         onClick={() => {

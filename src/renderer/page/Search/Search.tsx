@@ -216,7 +216,7 @@ function Search({
   return (
     <>
       <Header title={'Business Search'} />
-      <div className="flex flex-row sm:mx-4 lg:mx-8 transition-all duration-300">
+      <div className="flex flex-row bg-white dark:bg-gray-700 p-5 rounded-3xl shadow-xl sm:mx-4 m-12 lg:mx-8 transition-all duration-300">
         <div className="w-1/3">
           <Map
             currentLocation={currentLocation || null}
@@ -307,7 +307,7 @@ function Search({
             </div>
           </div>
         </div>
-        <div className="relative flex-1 w-2/3 ml-5 rounded-lg bg-gray-200 border border-indigo-600 mb-2 dark:bg-gray-700 sm:overflow-x-scroll lg:overflow-x-auto">
+        <div className="relative flex-1 w-2/3 ml-5 rounded-3xl pb-4 bg-gray-50 shadow-lg mb-2 dark:bg-gray-700">
           {loading ? (
             <div className="absolute left-1/2 top-1/2">
               <SearchLoader />

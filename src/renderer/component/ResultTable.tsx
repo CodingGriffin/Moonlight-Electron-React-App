@@ -24,36 +24,36 @@ interface TabComponentProps {
 
 function ResultTable({ data, favorite }: TabComponentProps) {
   return (
-    <div className="flex flex-col">
-      <div className='pb-14'>
+    <div className="flex flex-col pt-12 sm:overflow-x-scroll lg:overflow-x-auto dark:bg-gray-800">
+      <div className='pb-1'>
         <table className="min-w-full table-fixed text-center dark:text-gray-300 sm:text-[0.6rem] lg:text-sm">
           <thead className="sm:text-[0.6rem] lg:text-sm">
-            <tr className="row">
-              <th scope="col" className="sm:pl-2 lg:pl-3">
+            <tr className="row border-b-2 border-gray-600 border-solid p-2">
+              <th scope="col" className="sm:pl-2 pb-5 lg:pl-3">
                 No
               </th>
-              <th scope="col" className="">
+              <th scope="col" className="pb-5">
                 Name
               </th>
-              <th scope="col" className="">
+              <th scope="col" className="pb-5">
                 Address
               </th>
               {/* <th scope="col" className="w-2/12">
                 Industry
               </th> */}
-              <th scope="col" className="">
-                PhoneNumber
+              <th scope="col" className="pb-5">
+                Phone Number
               </th>
-              <th scope="col" className="">
+              <th scope="col" className="pb-5">
                 Email
               </th>
-              <th scope="col" className="">
+              <th scope="col" className="pb-5">
                 Website
               </th>
-              <th scope="col" className="">
+              <th scope="col" className="pb-5">
                 GoogleReview
               </th>
-              <th scope="col" className="pl-2">
+              <th scope="col" className="pl-2 pb-5">
               </th>
               {/* <th scope="col" className="w-2/12 pr-5">
                 SocialLinks
@@ -65,10 +65,10 @@ function ResultTable({ data, favorite }: TabComponentProps) {
               data.map((_item: Result, index) => {
                 return (
                   <tr
-                    className="border-t border-gray-500 border-solid"
+                    className={`${index % 2 == 0 ? 'bg-gray-300 dark:bg-gray-600' : 'bg-white dark:bg-gray-400'}`}
                     key={index}
                   >
-                    <td className="sm:px-1 py-1 pl-1 lg:px-2 py-5 pl-5">{index + 1}</td>
+                    <td className="sm:px-1 py-4 pl-1 lg:px-2 py-5 pl-5">{index + 1}</td>
                     <td className="sm:px-1 lg:px-2">{_item.name}</td>
                     <td className="sm:px-1 lg:px-2">{_item.formatted_address}</td>
                     {/* <td className="sm:px-1 lg:px-2">{_item.industry}</td> */}
@@ -93,72 +93,6 @@ function ResultTable({ data, favorite }: TabComponentProps) {
           </tbody>
         </table>
       </div>
-      {/* <div>
-        <nav
-          className="flex items-center flex-column flex-wrap flex-row justify-center pt-2"
-          aria-label="Table navigation"
-        >
-          <ul className="inline-flex -space-x-px rtl:space-x-reverse sm:text-xs lg:text-sm h-8">
-            <li>
-              <a
-                href="#"
-                className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 rounded-s-lg hover:text-black dark:hover:text-white"
-              >
-                Previous
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 hover:text-black dark:hover:text-white"
-              >
-                1
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 hover:text-black dark:hover:text-white"
-              >
-                2
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                aria-current="page"
-                className="flex items-center justify-center px-3 h-8 text-white rounded-full bg-gray-400 dark:bg-stone-100 hover:text-black dark:hover:text-white"
-              >
-                3
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 hover:text-black dark:hover:text-white"
-              >
-                4
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 hover:text-black dark:hover:text-white"
-              >
-                5
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 rounded-e-lg hover:text-black dark:hover:text-white"
-              >
-                Next
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </div> */}
     </div>
   );
 }
