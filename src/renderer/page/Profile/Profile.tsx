@@ -15,7 +15,7 @@ function Profile() {
   return (
     <div>
       <Header title="user settings" />
-      <div className="rounded-3xl pb-10 profile-bg mx-10 p-10">
+      <div className="rounded-3xl pb-10 bg-white dark:bg-gray-700 mx-10 p-10 my-12">
         {/* <div className="flex justify-end w-full">
           <button className="save-btn" type="button">
             Save Changing

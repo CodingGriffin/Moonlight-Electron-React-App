@@ -143,55 +143,26 @@ function Favorite({ data, favorite, exportResult }: HistoryProps) {
   };
 
   return (
-    // <div className="rounded-3xl pb-10 history-bg mx-10">
-    //   <div className="py-10 px-8 flex justify-between">
-    //     <h2 className="flex">Search Results</h2>
-    //     <div className="flex">
-    //       <button
-    //         className="flex flex-row items-center mr-5 h-10 button-filter"
-    //         type="button"
-    //       >
-    //         <img className="mr-5" src={filterSvg} alt="filter" />
-    //         <span className="text-md">Filter</span>
-    //       </button>
-    //       <button
-    //         className="flex flex-row items-center mx-5 h-10 button-download"
-    //         type="button"
-    //         onClick={downloadResult}
-    //       >
-    //         <img className="mr-5" src={downloadSvg} alt="export" />
-    //         <span className="text-black">Download</span>
-    //       </button>
-    //       <button
-    //         className="flex flex-row items-center ml-5 h-10 button-export"
-    //         type="button"
-    //         onClick={handleExportButton}
-    //       >
-    //         <img className="mr-5" src={downloadSvg} alt="export" />
-    //         <span className="text-black">Export</span>
-    //       </button>
-    //     </div>
-    //   </div>
-    //   <ResultTable data={result} favorite={favorite} />
-    // </div>
     <div>
       <Header title="Favorite" />
-      <div className="flex justify-between sm:py-3 px-2 mx-3 lg:py-10 px-8 mx-5">
-        <h2 className="flex font-bold pl-2">Search Results</h2>
-        <div className="flex">
-          <FilterBtn
-            filterWebsite={filterWebsite}
-            filterEmail={filterEmail}
-            filterAddress={filterAddress}
-            filterPhone={filterPhone}
-          />
-          <DropdownExportButton
-            downloadResult={downloadResult}
-            handleExportButton={handleExportButton}
-          />
+      <div className='bg-white dark:bg-gray-700 my-12 pb-6 rounded-3xl mx-8 shadow-xl min-h-screen'>
+        <div className="flex justify-between sm:py-3 px-2 mx-3 lg:py-10 px-8 mx-5">
+          <h2 className="flex font-bold sm:text-xl pl-2 lg:pl-2 lg:text-2xl">Search Results</h2>
+          <div className="flex">
+            <FilterBtn
+              filterWebsite={filterWebsite}
+              filterEmail={filterEmail}
+              filterAddress={filterAddress}
+              filterPhone={filterPhone}
+            />
+            <DropdownExportButton
+              downloadResult={downloadResult}
+              handleExportButton={handleExportButton}
+            />
+          </div>
         </div>
+        <ResultTable data={result} favorite={favorite} />
       </div>
-      <ResultTable data={result} favorite={favorite} />
     </div>
   );
 }

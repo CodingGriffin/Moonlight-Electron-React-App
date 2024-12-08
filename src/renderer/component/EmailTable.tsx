@@ -12,7 +12,7 @@ interface TabComponentProps {
 function EmailTable({ data }: TabComponentProps) {
   return (
     <div className="relative h-auto">
-      <table className="w-full text-sm text-center text-gray-500 mx-2">
+      <table className="w-full text-sm text-center text-gray-500 dark:text-gray-300 mx-2">
         <thead className="text-sm">
           <tr className="">
             <th scope="col" className="pl-2 w-[2rem]">
