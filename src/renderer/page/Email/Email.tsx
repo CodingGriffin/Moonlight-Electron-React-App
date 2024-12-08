@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 
+import OpenAI from 'openai';
+import axios from 'axios';
 import EmailTable from '../../component/EmailTable';
 import binSvg from '../../../../assets/images/email/bin.svg';
 import pencilSvg from '../../../../assets/images/email/pencil.svg';
-
-import OpenAI from 'openai';
 import Header from '../../component/Header';
-const { Configuration, OpenAIApi } = require('openai');
+
+// const { Configuration, OpenAIApi } = require('openai');
 const openai = new OpenAI({
-  apiKey: "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", // Replace with your OpenAI API key
-  dangerouslyAllowBrowser: true
+  apiKey:
+    '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', // Replace with your OpenAI API key
+  dangerouslyAllowBrowser: true,
 });
 
 interface EmailProps {
@@ -24,29 +26,60 @@ function Email({ sendEmail, emails }: EmailProps) {
 
   const handleGpt = async () => {
     try {
-      const completion = await openai.chat.completions.create({
-        model: "gpt-3.5",
-        messages: [
-            { role: "system", content: "You are a helpful assistant." },
+      // const completion = await openai.chat.completions.create({
+      //   model: 'gpt-3.5',
+      //   messages: [
+      //     { role: 'system', content: 'You are a helpful assistant.' },
+      //     {
+      //       role: 'user',
+      //       content: 'Write a haiku about recursion in programming.',
+      //     },
+      //   ],
+      // });
+
+      const completion = await axios.post(
+        'https://api.openai.com/v1/chat/completions',
+        {
+          messages: [
             {
-                role: "user",
-                content: "Write a haiku about recursion in programming.",
+              role: 'system',
+              content: 'You are a helpful assistant.',
             },
-        ],
-    });
-    
-    console.log(completion.choices[0].message);      
-        // const response = await openai.chat.completions.create({
-        //     model: 'text-davinci-003',
-        //     prompt: `Write a polite email to a business describing the following problem:\n\n${subject}\n\nThe email should be concise and clear.`,
-        //     max_tokens: 200,
-        // });
-        // console.log( response.data.choices[0].text.trim());
+            // Example hardcoded message, should be adjusted according to real application logic
+            {
+              role: 'user',
+              content: `Write a haiku about recursion in programming.`,
+            },
+          ],
+          model: 'gpt-4-0125-preview',
+          response_format: { type: 'json_object' },
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Headers':
+              'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token',
+            'Access-Control-Allow-Methods': 'OPTIONS,POST',
+            'Access-Control-Allow-Credentials': true,
+            'Access-Control-Allow-Origin': '*',
+            'X-Requested-With': '*',
+            Authorization: `Bearer sk-proj-vEC7LFZKrZmlyJwOUwMeT3BlbkFJXI6I5oxlbNddcqP46ayg`,
+          },
+        },
+      );
+
+      console.log(completion.choices[0].message);
+      // const response = await openai.chat.completions.create({
+      //     model: 'text-davinci-003',
+      //     prompt: `Write a polite email to a business describing the following problem:\n\n${subject}\n\nThe email should be concise and clear.`,
+      //     max_tokens: 200,
+      // });
+      // console.log( response.data.choices[0].text.trim());
     } catch (error) {
-        console.error('Error generating email:', error);
-        throw new Error('Failed to generate email. Please try again.');
+      console.error('Error generating email:', error);
+      throw new Error('Failed to generate email. Please try again.');
     }
-  }
+  };
 
   const handleSendBtn = () => {
     const tokens = localStorage.getItem('token');
@@ -66,7 +99,7 @@ function Email({ sendEmail, emails }: EmailProps) {
 
   return (
     <div>
-      <Header title={'Message Inbox'} />
+      <Header title="Message Inbox" />
       <div className="rounded-xl pb-10 bg-gray-200 dark:bg-gray-900 mx-3 lg:mx-10">
         <div className="sm:py-3 lg:py-10 px-8 flex justify-between">
           <h2 className="flex text-xl font-bold">Inbox</h2>
@@ -108,7 +141,9 @@ function Email({ sendEmail, emails }: EmailProps) {
           >
             <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
               <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                <div className="bg-[#424242] px-3 py-3 text-white">New Message</div>
+                <div className="bg-[#424242] px-3 py-3 text-white">
+                  New Message
+                </div>
                 <div className="px-4 pb-4 pt-5 sm:p-6 sm:pb-4 dark:bg-gray-900 ">
                   <input
                     className="block py-1.5 ps-6 pe-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-gray-600 peer"

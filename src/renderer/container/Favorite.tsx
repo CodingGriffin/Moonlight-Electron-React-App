@@ -40,7 +40,7 @@ function FavoriteContainer() {
         },
       );
 
-      await setResults(response.data);
+      getResults();
     } catch (error) {
       console.error('Error Sending Email:', error);
     }
