@@ -15,7 +15,7 @@ function SearchContainer() {
   }) => {
     try {
       const response = await axios.get(
-        'http://192.168.145.241:5000/api/search/search',
+        'http://45.12.134.112:5000/api/search/search',
         {
           params: {
             q: data.query,
@@ -45,7 +45,7 @@ function SearchContainer() {
 
     try {
       await axios.post(
-        'http://192.168.145.241:5000/api/sheet/add',
+        'http://45.12.134.112:5000/api/sheet/add',
         { data },
         {
           headers: {
@@ -62,7 +62,7 @@ function SearchContainer() {
   const exportResult = async (data: any) => {
     try {
       const response = await axios.post(
-        'http://192.168.145.241:5000/api/result/export',
+        'http://45.12.134.112:5000/api/result/export',
         { data },
       );
       return response.data.url;
@@ -78,7 +78,7 @@ function SearchContainer() {
 
     try {
       const response = await axios.post(
-        'http://192.168.145.241:5000/api/result/save',
+        'http://45.12.134.112:5000/api/result/save',
         { data },
         {
           headers: {
@@ -102,7 +102,7 @@ function SearchContainer() {
     try {
       if (id.name) {
         await axios.put(
-          `http://192.168.145.241:5000/api/result/favorite/${'999999999999999999999999'}`,
+          `http://45.12.134.112:5000/api/result/favorite/${'999999999999999999999999'}`,
           { id },
           {
             headers: {
@@ -113,7 +113,7 @@ function SearchContainer() {
         );
       } else {
         await axios.put(
-          `http://192.168.145.241:5000/api/result/favorite/${id}`,
+          `http://45.12.134.112:5000/api/result/favorite/${id}`,
           {
             headers: {
               Authorization: `Bearer ${JSON.parse(token || '')}`,

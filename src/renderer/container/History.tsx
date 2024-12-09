@@ -10,7 +10,7 @@ function HistoryContainer() {
 
     try {
       const response = await axios.get(
-        'http://192.168.145.241:5000/api/result',
+        'http://45.12.134.112:5000/api/result',
         {
           headers: {
             Authorization: `Bearer ${JSON.parse(token || '')}`,
@@ -28,7 +28,7 @@ function HistoryContainer() {
   const exportResult = async (data: any) => {
     try {
       const response = await axios.post(
-        'http://192.168.145.241:5000/api/result/export',
+        'http://45.12.134.112:5000/api/result/export',
         { data },
       );
       return response.data.url;
@@ -44,7 +44,7 @@ function HistoryContainer() {
 
     try {
       const response = await axios.put(
-        `http://192.168.145.241:5000/api/result/favorite/${id}`,
+        `http://45.12.134.112:5000/api/result/favorite/${id}`,
         {},
         {
           headers: {

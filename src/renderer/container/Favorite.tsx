@@ -10,7 +10,7 @@ function FavoriteContainer() {
 
     try {
       const response = await axios.get(
-        'http://192.168.145.241:5000/api/result/favorite',
+        'http://45.12.134.112:5000/api/result/favorite',
         {
           headers: {
             Authorization: `Bearer ${JSON.parse(token || '')}`,
@@ -30,7 +30,7 @@ function FavoriteContainer() {
 
     try {
       const response = await axios.put(
-        `http://192.168.145.241:5000/api/result/favorite/${id}`,
+        `http://45.12.134.112:5000/api/result/favorite/${id}`,
         {},
         {
           headers: {

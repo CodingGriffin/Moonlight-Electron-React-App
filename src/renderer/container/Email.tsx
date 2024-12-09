@@ -10,7 +10,7 @@ function EmailContainer() {
 
     try {
       const response = await axios.get(
-        'http://192.168.145.241:5000/api/email',
+        'http://45.12.134.112:5000/api/email',
         {
           headers: {
             Authorization: `Bearer ${JSON.parse(token || '')}`,
@@ -29,7 +29,7 @@ function EmailContainer() {
 
     try {
       const response = await axios.post(
-        'http://192.168.145.241:5000/api/email/send_email',
+        'http://45.12.134.112:5000/api/email/send_email',
         { data },
         {
           headers: {

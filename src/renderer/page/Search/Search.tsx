@@ -76,7 +76,7 @@ function Search({
   };
 
   const selectedCountry = async (e: any) => {
-    console.log("this is the country name", e.target.value);
+    console.log('this is the country name', e.target.value);
     try {
       const response = await fetch(
         `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(e.target.value)}&key=AIzaSyD8pk2ZnpR82LXx3IJUXFbaRnhZ27hR4ZY`,
@@ -99,15 +99,16 @@ function Search({
       // eslint-disable-next-line promise/always-return
       .then((data: any) => {
         const select = document.getElementById('country');
+        const countryNames = data.map((item: any) => item.name.common);
 
-        data.forEach(
-          (country: { cca2: string; name: { common: string | null } }) => {
-            const option = document.createElement('option');
-            option.value = country.name.common || ''; // ISO 3166-1 alpha-2 code
-            option.textContent = country.name.common; // Common name
-            select.appendChild(option);
-          },
-        );
+        // Sort country names alphabetically
+        const sortedCountryNames = countryNames.sort();
+        sortedCountryNames.forEach((country: string) => {
+          const option = document.createElement('option');
+          option.value = country || ''; // ISO 3166-1 alpha-2 code
+          option.textContent = country; // Common name
+          select.appendChild(option);
+        });
       })
       .catch((error) => console.error('Error fetching country data:', error));
     // Get user's current location
@@ -225,13 +226,6 @@ function Search({
             // onMapClick={onMapClick}
             sentCenter={sentCenterClick}
           />
-          <input
-            value={locationValue}
-            onChange={onChangeHandle}
-            className="rounded-md w-full search sm:mt-3 h-[2rem] lg:mt-5 lg:h-[3rem] dark:bg-gray-700"
-            type="text"
-            placeholder="location..."
-          />
           <select
             id="country"
             onChange={selectedCountry}
@@ -241,6 +235,21 @@ function Search({
               --Please choose a country--
             </option>
           </select>
+          <input
+            value={locationValue}
+            onChange={onChangeHandle}
+            className="rounded-md w-full search sm:mt-3 h-[2rem] lg:mt-5 lg:h-[3rem] dark:bg-gray-700"
+            type="text"
+            placeholder="location..."
+          />
+          <input
+            value={query}
+            onChange={handleSearchChange}
+            onKeyDown={handleKeyPress}
+            className="rounded-md w-full mt-5 sm:h-[2rem] lg:h-[3rem] dark:bg-gray-700"
+            type="text"
+            placeholder="Search here..."
+          />
           <div className="relative w-full">
             <p className="font-semibold sm:mt-1 text-sm lg:mt-3">Range:</p>
             <input
@@ -280,14 +289,6 @@ function Search({
               value={count}
               onChange={handleCountChange}
               className="flex rounded-md w-full sm:h-[2rem] lg:h-[3rem] dark:bg-gray-700"
-            />
-            <input
-              value={query}
-              onChange={handleSearchChange}
-              onKeyDown={handleKeyPress}
-              className="rounded-md w-full mt-5 sm:h-[2rem] lg:h-[3rem] dark:bg-gray-700"
-              type="text"
-              placeholder="Search here..."
             />
             <div className="flex flex-row justify-between mt-5">
               <button

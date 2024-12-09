@@ -10,7 +10,7 @@ function SheetContainer() {
 
     try {
       const response = await axios.get(
-        'http://192.168.145.241:5000/api/sheet',
+        'http://45.12.134.112:5000/api/sheet',
         {
           headers: {
             Authorization: `Bearer ${JSON.parse(token || '')}`,
@@ -34,7 +34,7 @@ function SheetContainer() {
 
     try {
       const response = await axios.post(
-        'http://192.168.145.241:5000/api/sheet/combine',
+        'http://45.12.134.112:5000/api/sheet/combine',
         { targetId, droppedId },
         {
           headers: {
