@@ -20,6 +20,10 @@ const containerStyle = {
   paddingTop: '100%',
 };
 
+const customMapStyle = [
+  // ... (add the rest of your styles here)
+];
+
 // eslint-disable-next-line react/function-component-definition
 const Map: React.FC<MapComponentProps> = ({
   currentLocation,
@@ -75,6 +79,13 @@ const Map: React.FC<MapComponentProps> = ({
     });
   };
 
+  const mapOptions = {
+    zoomControl: false,
+    streetViewControl: false,
+    mapTypeControl: false,
+    // styles: customMapStyle,
+  };
+
   // Use effect to update the circle's radius when the range changes
   useEffect(() => {
     if (circleRef.current) {
@@ -89,6 +100,7 @@ const Map: React.FC<MapComponentProps> = ({
         center={currentLocation || { lat: -34.397, lng: 150.644 }}
         zoom={8}
         onLoad={onLoad}
+        options={mapOptions}
       />
     </LoadScript>
   );
