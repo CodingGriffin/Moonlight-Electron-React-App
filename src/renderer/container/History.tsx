@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import History from '../page/History/History';
+import { API } from '../config';
 
 function HistoryContainer() {
   const [results, setResults] = useState([]);
@@ -9,15 +10,12 @@ function HistoryContainer() {
     const token = localStorage.getItem('access_token');
 
     try {
-      const response = await axios.get(
-        'http://45.12.134.112:5000/api/result',
-        {
-          headers: {
-            Authorization: `Bearer ${JSON.parse(token || '')}`,
-            'Content-Type': 'application/json', // Optional, depending on your API
-          },
+      const response = await axios.get(`${API}result`, {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(token || '')}`,
+          'Content-Type': 'application/json', // Optional, depending on your API
         },
-      );
+      });
 
       await setResults(response.data);
     } catch (error) {
@@ -27,10 +25,9 @@ function HistoryContainer() {
 
   const exportResult = async (data: any) => {
     try {
-      const response = await axios.post(
-        'http://45.12.134.112:5000/api/result/export',
-        { data },
-      );
+      const response = await axios.post(`${API}result/export`, {
+        data,
+      });
       return response.data.url;
     } catch (error) {
       console.error('Error exporting to GoogleSheet:', error);
@@ -44,7 +41,7 @@ function HistoryContainer() {
 
     try {
       const response = await axios.put(
-        `http://45.12.134.112:5000/api/result/favorite/${id}`,
+        `${API}result/favorite/${id}`,
         {},
         {
           headers: {

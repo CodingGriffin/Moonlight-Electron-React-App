@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import SheetDetail from '../page/Sheet/SheetDetail';
+import { API } from '../config';
 
 function SheetDetailContainer() {
   const [results, setResults] = useState([]);
@@ -11,15 +12,12 @@ function SheetDetailContainer() {
     const token = localStorage.getItem('access_token');
 
     try {
-      const response = await axios.get(
-        `http://45.12.134.112:5000/api/sheet/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${JSON.parse(token || '')}`,
-            'Content-Type': 'application/json', // Optional, depending on your API
-          },
+      const response = await axios.get(`${API}sheet/${id}`, {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(token || '')}`,
+          'Content-Type': 'application/json', // Optional, depending on your API
         },
-      );
+      });
 
       await setResults(response.data);
     } catch (error) {
@@ -32,7 +30,7 @@ function SheetDetailContainer() {
 
     try {
       const response = await axios.put(
-        `http://45.12.134.112:5000/api/result/favorite/${resultId}`,
+        `${API}result/favorite/${resultId}`,
         {},
         {
           headers: {

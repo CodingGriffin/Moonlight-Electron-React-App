@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Favorite from '../page/Favorite/Favorite';
+import { API } from '../config';
 
 function FavoriteContainer() {
   const [results, setResults] = useState([]);
@@ -9,15 +10,12 @@ function FavoriteContainer() {
     const token = localStorage.getItem('access_token');
 
     try {
-      const response = await axios.get(
-        'http://45.12.134.112:5000/api/result/favorite',
-        {
-          headers: {
-            Authorization: `Bearer ${JSON.parse(token || '')}`,
-            'Content-Type': 'application/json', // Optional, depending on your API
-          },
+      const response = await axios.get(`${API}result/favorite`, {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(token || '')}`,
+          'Content-Type': 'application/json', // Optional, depending on your API
         },
-      );
+      });
 
       await setResults(response.data);
     } catch (error) {
@@ -30,7 +28,7 @@ function FavoriteContainer() {
 
     try {
       const response = await axios.put(
-        `http://45.12.134.112:5000/api/result/favorite/${id}`,
+        `${API}result/favorite${id}`,
         {},
         {
           headers: {

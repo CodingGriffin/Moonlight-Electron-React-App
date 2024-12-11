@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 import { GoogleMap, LoadScript } from '@react-google-maps/api';
 import { useEffect, useRef } from 'react';
+import { GOOGLE_API_KEY } from '../config';
 
 interface MapPosition {
   lat: number;
@@ -94,7 +95,7 @@ const Map: React.FC<MapComponentProps> = ({
   }, [range]); // Dependency on range
 
   return (
-    <LoadScript googleMapsApiKey="AIzaSyD8pk2ZnpR82LXx3IJUXFbaRnhZ27hR4ZY">
+    <LoadScript googleMapsApiKey={GOOGLE_API_KEY}>
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={currentLocation || { lat: -34.397, lng: 150.644 }}

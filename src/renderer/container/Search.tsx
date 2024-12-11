@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Search from '../page/Search/Search';
+import { API } from '../config';
 
 function SearchContainer() {
   const [result, setResult] = useState([]);
@@ -14,18 +15,15 @@ function SearchContainer() {
     radius: number;
   }) => {
     try {
-      const response = await axios.get(
-        'http://45.12.134.112:5000/api/search/search',
-        {
-          params: {
-            q: data.query,
-            num: data.num,
-            lat: data.lat,
-            lng: data.lng,
-            radius: data.radius,
-          },
+      const response = await axios.get(`${API}search/search`, {
+        params: {
+          q: data.query,
+          num: data.num,
+          lat: data.lat,
+          lng: data.lng,
+          radius: data.radius,
         },
-      );
+      });
       localStorage.setItem(
         'search-result',
         JSON.stringify(response.data.scrapedData),
@@ -45,7 +43,7 @@ function SearchContainer() {
 
     try {
       await axios.post(
-        'http://45.12.134.112:5000/api/sheet/add',
+        `${API}sheet/add`,
         { data },
         {
           headers: {
@@ -61,10 +59,7 @@ function SearchContainer() {
 
   const exportResult = async (data: any) => {
     try {
-      const response = await axios.post(
-        'http://45.12.134.112:5000/api/result/export',
-        { data },
-      );
+      const response = await axios.post(`${API}result/export`, { data });
       return response.data.url;
     } catch (error) {
       console.error('Error exporting to GoogleSheet:', error);
@@ -78,7 +73,7 @@ function SearchContainer() {
 
     try {
       const response = await axios.post(
-        'http://45.12.134.112:5000/api/result/save',
+        `${API}result/save`,
         { data },
         {
           headers: {
@@ -102,7 +97,7 @@ function SearchContainer() {
     try {
       if (id.name) {
         await axios.put(
-          `http://45.12.134.112:5000/api/result/favorite/${'999999999999999999999999'}`,
+          `${API}result/favorite/${'999999999999999999999999'}`,
           { id },
           {
             headers: {
@@ -112,15 +107,12 @@ function SearchContainer() {
           },
         );
       } else {
-        await axios.put(
-          `http://45.12.134.112:5000/api/result/favorite/${id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${JSON.parse(token || '')}`,
-              'Content-Type': 'application/json', // Optional, depending on your API
-            },
+        await axios.put(`${API}result/favorite/${id}`, {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(token || '')}`,
+            'Content-Type': 'application/json', // Optional, depending on your API
           },
-        );
+        });
       }
     } catch (error) {
       console.error('Error Sending Email:', error);

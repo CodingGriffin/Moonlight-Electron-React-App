@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Email from '../page/Email/Email';
+import { API } from '../config';
 
 function EmailContainer() {
   const [emails, setEmails] = useState([]);
@@ -9,15 +10,12 @@ function EmailContainer() {
     const token = localStorage.getItem('access_token');
 
     try {
-      const response = await axios.get(
-        'http://45.12.134.112:5000/api/email',
-        {
-          headers: {
-            Authorization: `Bearer ${JSON.parse(token || '')}`,
-            'Content-Type': 'application/json', // Optional, depending on your API
-          },
+      const response = await axios.get(`${API}email`, {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(token || '')}`,
+          'Content-Type': 'application/json', // Optional, depending on your API
         },
-      );
+      });
 
       await setEmails(response.data);
     } catch (error) {
@@ -29,7 +27,7 @@ function EmailContainer() {
 
     try {
       const response = await axios.post(
-        'http://45.12.134.112:5000/api/email/send_email',
+        `${API}email/send_email`,
         { data },
         {
           headers: {
